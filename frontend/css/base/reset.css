@@ -1,0 +1,6 @@
+/* Remove espaçamentos padrão e mantém o box model previsível. */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}

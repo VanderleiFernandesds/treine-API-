@@ -1,0 +1,5 @@
+/* Fundo e altura mínima da área principal da loja. */
+section.store {
+  background-color: #f4f4f4;
+  min-height: calc(100vh - 100px);
+}

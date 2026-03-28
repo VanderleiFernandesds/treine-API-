@@ -1,0 +1,30 @@
+/* Organiza a lateral de apresentação e a lista de produtos. */
+.store-grid {
+  padding: 20px 0px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Caixa lateral com o título e a descrição da seção. */
+.store-content {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  border: 1px solid #cccccc;
+}
+
+/* Grade responsiva onde os cards de produto são inseridos. */
+.store-loja {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+  border: 1px solid #cccccc;
+  width: 100%;
+  min-height: 200px;
+}

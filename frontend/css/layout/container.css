@@ -1,0 +1,7 @@
+/* Centraliza o conteúdo e limita a largura máxima da página. */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 48px);
+}

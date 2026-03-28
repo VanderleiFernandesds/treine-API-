@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!-- Metadados básicos e configuração responsiva da página. -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loja Virtual | Treinando API</title>
+
+    <!-- Ícones usados pelo navegador, atalhos e dispositivos móveis. -->
+    <link rel="icon" href="./images/icons/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./images/icons/favicon-16x16.png"
+    />
+    <link rel="apple-touch-icon" href="./images/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="./images/icons/site.webmanifest" />
+
+    <!-- Arquivo principal de estilos da interface. -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Cabeçalho visual com banner da loja. -->
+    <header class="store-header">
+      <div class="container store-header-banner"></div>
+    </header>
+
+    <!-- Conteúdo principal da página. -->
+    <main>
+      <!-- Seção que agrupa título lateral e grade de produtos. -->
+      <section class="store" aria-labelledby="store-title">
+        <div class="container">
+          <div class="store-grid">
+            <!-- Bloco de apresentação da vitrine. -->
+            <aside class="store-content" aria-labelledby="store-title">
+              <div>
+                <h2 class="store-text" id="store-title">Produtos</h2>
+                <p>Catálogo carregado pela API REST do projeto.</p>
+              </div>
+            </aside>
+
+            <!-- Área preenchida dinamicamente com os cards vindos da API. -->
+            <section
+              class="store-loja"
+              id="store-loja"
+              aria-label="Lista de produtos"
+            ></section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Script principal que busca e renderiza os produtos. -->
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
