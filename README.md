@@ -7,6 +7,10 @@ Hoje o projeto ja faz:
 - exibir produtos no frontend
 - buscar produtos pela API
 - ler os dados da tabela `products` no MySQL
+- cadastrar novos produtos
+- buscar um produto por id
+- atualizar produtos existentes
+- remover produtos
 
 ## Tecnologias
 
@@ -147,7 +151,7 @@ Abra o arquivo `frontend/index.html` no navegador ou rode com uma extensao como 
 
 Com o backend ligado, o frontend deve carregar os produtos automaticamente.
 
-## Endpoint disponivel
+## Endpoints disponiveis
 
 ### `GET /api/products`
 
@@ -164,6 +168,59 @@ Exemplo de resposta:
   }
 ]
 ```
+
+### `GET /api/products/:id`
+
+Retorna um unico produto com base no `id` informado na URL.
+
+Exemplo de resposta:
+
+```json
+{
+  "id": 1,
+  "name": "Produto exemplo",
+  "description": "Descricao do produto",
+  "brand": "Marca exemplo",
+  "price": 199.9,
+  "image": "produto-exemplo.png"
+}
+```
+
+### `POST /api/products`
+
+Cadastra um novo produto no banco de dados.
+
+Exemplo de corpo da requisicao:
+
+```json
+{
+  "name": "Mouse Gamer",
+  "description": "Mouse com RGB",
+  "brand": "Logitech",
+  "price": 149.9,
+  "image": "mouse-gamer-rgb.png"
+}
+```
+
+### `PUT /api/products/:id`
+
+Atualiza os dados de um produto existente com base no `id`.
+
+Exemplo de corpo da requisicao:
+
+```json
+{
+  "name": "Mouse Gamer Pro",
+  "description": "Mouse atualizado",
+  "brand": "Logitech",
+  "price": 199.9,
+  "image": "mouse-gamer-rgb.png"
+}
+```
+
+### `DELETE /api/products/:id`
+
+Remove o produto correspondente ao `id` informado.
 
 ## Banco de dados
 
@@ -193,13 +250,13 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 ## Observacoes
 
 - o backend esta usando `CommonJS` com `require`
-- a API ainda esta simples e, no momento, possui rota de leitura `GET`
+- a API possui CRUD basico para a entidade `products`
 - o frontend depende do backend rodando na porta `3001`
 
 ## Proximos passos sugeridos
 
-- adicionar rotas `POST`, `PUT` ou `PATCH` e `DELETE`
-- validar dados antes de salvar no banco
-- tratar melhor respostas de erro
+- melhorar a validacao dos dados recebidos
+- padronizar ainda mais as respostas de erro
 - documentar a estrutura exata da tabela `products`
 - adicionar testes para backend
+- integrar o CRUD ao frontend com formulario e botoes de editar/remover
