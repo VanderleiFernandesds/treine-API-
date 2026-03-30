@@ -1,4 +1,3 @@
-
 import { getProdutos } from './services/api.js';
 import { criarProdutoHTML } from './components/productCard.js';
 
