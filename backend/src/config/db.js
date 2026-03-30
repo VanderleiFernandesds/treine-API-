@@ -1,5 +1,5 @@
-const mysql = require('mysql2');
-require('dotenv').config();
+import 'dotenv/config';
+import mysql from 'mysql2';
 
 // Cria um pool de conexões para reutilizar acessos ao banco MySQL.
 const db = mysql.createPool({
@@ -9,4 +9,4 @@ const db = mysql.createPool({
   database: process.env.DB_NAME
 });
 
-module.exports = db;
+export default db;

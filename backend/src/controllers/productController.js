@@ -1,6 +1,6 @@
-const db = require('../config/db');
+import db from '../config/db.js';
 
-exports.getProducts = (req, res) => {
+export const getProducts = (req, res) => {
   // Consulta todos os produtos cadastrados na tabela products.
   const sqlQuery = "SELECT * FROM products";
 
@@ -13,7 +13,7 @@ exports.getProducts = (req, res) => {
   });
 };
 
-exports.createProduct = (req, res) => {
+export const createProduct = (req, res) => {
   const { name, description, brand, price, image } = req.body;
 
   // Garante que os campos minimos para cadastro foram enviados.
@@ -60,7 +60,7 @@ exports.createProduct = (req, res) => {
   });
 };
 
-exports.getProductById = (req, res) => {
+export const getProductById = (req, res) => {
   const { id } = req.params;
 
   // Busca um unico produto pelo id recebido na URL.
@@ -78,8 +78,7 @@ exports.getProductById = (req, res) => {
   });
 };
 
-
-exports.updateProduct = (req, res) => {
+export const updateProduct = (req, res) => {
   const { id } = req.params;
   const { name, description, brand, price, image } = req.body;
 
@@ -133,7 +132,7 @@ exports.updateProduct = (req, res) => {
   });
 };
 
-exports.deleteProduct = (req, res) => {
+export const deleteProduct = (req, res) => {
   const { id } = req.params;
 
   // Remove o produto pelo id enviado na URL.
