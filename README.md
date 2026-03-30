@@ -70,6 +70,8 @@ No backend, a organizacao atual esta assim:
 - `src/config/db.js`: cria a conexao com o MySQL usando variaveis de ambiente
 - `server.js`: inicia o servidor na porta `3001`
 
+O backend esta configurado com ES Modules, usando `import` e `export`.
+
 Scripts disponiveis em `backend/package.json`:
 
 ```bash
@@ -249,7 +251,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 
 ## Observacoes
 
-- o backend esta usando `CommonJS` com `require`
+- o backend esta usando `ES Modules` com `import` e `export`
 - a API possui CRUD basico para a entidade `products`
 - o frontend depende do backend rodando na porta `3001`
 
