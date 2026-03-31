@@ -11,6 +11,7 @@ Hoje o projeto ja faz:
 - buscar um produto por id
 - atualizar produtos existentes
 - remover produtos
+- gerenciar produtos em uma pagina admin separada da loja
 
 ## Tecnologias
 
@@ -45,7 +46,9 @@ project/
     js/
       components/
       services/
+      admin.js
       main.js
+    admin.html
     index.html
   README.md
 ```
@@ -84,9 +87,11 @@ npm run dev
 No frontend, a organizacao atual esta assim:
 
 - `index.html`: estrutura principal da pagina
+- `admin.html`: painel administrativo separado para treinar o CRUD no frontend
 - `images/banners/`: imagens de destaque da interface
 - `images/icons/`: icones do projeto, como favicon e elementos visuais pequenos
 - `images/products/`: imagens dos produtos e placeholder
+- `js/admin.js`: carrega a lista no painel admin e controla cadastro, edicao e exclusao
 - `js/main.js`: carrega os produtos quando a pagina abre
 - `js/services/api.js`: faz o `fetch` para a API
 - `js/components/`: componentes de renderizacao dos produtos
@@ -152,6 +157,21 @@ http://localhost:3001
 Abra o arquivo `frontend/index.html` no navegador ou rode com uma extensao como Live Server no VS Code.
 
 Com o backend ligado, o frontend deve carregar os produtos automaticamente.
+
+### 3. Abrir o painel admin
+
+Para treinar o CRUD pelo frontend sem misturar com a vitrine, abra:
+
+```text
+frontend/admin.html
+```
+
+Nessa pagina voce pode:
+
+- cadastrar produtos
+- editar produtos existentes
+- remover produtos
+- alternar entre modo cadastro e modo edicao
 
 ## Endpoints disponiveis
 
@@ -254,6 +274,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - o backend esta usando `ES Modules` com `import` e `export`
 - a API possui CRUD basico para a entidade `products`
 - o frontend depende do backend rodando na porta `3001`
+- a loja publica e o painel admin foram separados em paginas diferentes
 
 ## Proximos passos sugeridos
 
@@ -261,4 +282,5 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - padronizar ainda mais as respostas de erro
 - documentar a estrutura exata da tabela `products`
 - adicionar testes para backend
-- integrar o CRUD ao frontend com formulario e botoes de editar/remover
+- substituir `alert()` por mensagens visuais no painel admin
+- adicionar busca, filtros ou carrinho para evoluir o projeto
