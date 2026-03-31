@@ -91,7 +91,7 @@ No frontend, a organizacao atual esta assim:
 - `images/banners/`: imagens de destaque da interface
 - `images/icons/`: icones do projeto, como favicon e elementos visuais pequenos
 - `images/products/`: imagens dos produtos e placeholder
-- `js/admin.js`: carrega a lista no painel admin e controla cadastro, edicao e exclusao
+- `js/admin.js`: carrega a lista no painel admin e controla cadastro, edicao, exclusao, feedback visual e modal
 - `js/main.js`: carrega os produtos quando a pagina abre
 - `js/services/api.js`: faz o `fetch` para a API
 - `js/components/`: componentes de renderizacao dos produtos
@@ -172,6 +172,8 @@ Nessa pagina voce pode:
 - editar produtos existentes
 - remover produtos
 - alternar entre modo cadastro e modo edicao
+- visualizar mensagens de sucesso e erro sem usar `alert()`
+- confirmar exclusoes em um modal
 
 ## Endpoints disponiveis
 
@@ -275,6 +277,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - a API possui CRUD basico para a entidade `products`
 - o frontend depende do backend rodando na porta `3001`
 - a loja publica e o painel admin foram separados em paginas diferentes
+- o painel admin usa feedback visual e modal de confirmacao para exclusao
 
 ## Proximos passos sugeridos
 
@@ -282,5 +285,4 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - padronizar ainda mais as respostas de erro
 - documentar a estrutura exata da tabela `products`
 - adicionar testes para backend
-- substituir `alert()` por mensagens visuais no painel admin
 - adicionar busca, filtros ou carrinho para evoluir o projeto

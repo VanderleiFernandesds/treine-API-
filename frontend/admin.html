@@ -42,7 +42,11 @@
 
                 <label class="admin-field">
                   <span>Nome do produto</span>
-                  <input type="text" name="name" placeholder="Ex: Mouse Gamer RGB" />
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Ex: Mouse Gamer RGB"
+                  />
                 </label>
 
                 <label class="admin-field">
@@ -57,7 +61,11 @@
                 <div class="admin-field-row">
                   <label class="admin-field">
                     <span>Marca</span>
-                    <input type="text" name="brand" placeholder="Ex: Logitech" />
+                    <input
+                      type="text"
+                      name="brand"
+                      placeholder="Ex: Logitech"
+                    />
                   </label>
 
                   <label class="admin-field">
@@ -73,10 +81,17 @@
 
                 <label class="admin-field">
                   <span>Imagem</span>
-                  <input type="text" name="image" placeholder="mouse-gamer-rgb.png" />
+                  <input
+                    type="text"
+                    name="image"
+                    placeholder="mouse-gamer-rgb.png"
+                  />
                 </label>
 
+                <!-- Indicador visual do modo atual: cadastro ou edição. -->
                 <p id="form-mode" class="admin-form-mode">Modo cadastro</p>
+                <!-- Área de feedback para mostrar sucesso e erro dentro da página. -->
+                <p id="admin-feedback" class="admin-feedback"></p>
 
                 <div class="admin-form-actions">
                   <button
@@ -113,6 +128,23 @@
         </div>
       </section>
     </main>
+
+    <!-- Modal de confirmação exibido antes de excluir um produto. -->
+    <div class="admin-modal hidden" id="delete-modal">
+      <div class="admin-modal-content">
+        <h3>Confirmar exclusão</h3>
+        <p id="delete-modal-text">
+          Tem certeza que deseja excluir este produto?
+        </p>
+
+        <!-- Ações do modal: confirmar a exclusão ou cancelar. -->
+        <div class="admin-modal-actions">
+          <button type="button" id="confirm-delete-button">Excluir</button>
+          <button type="button" id="cancel-delete-button">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Script responsável por carregar, cadastrar, editar e excluir produtos. -->
     <script type="module" src="js/admin.js"></script>
   </body>

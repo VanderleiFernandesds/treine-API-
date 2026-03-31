@@ -5,6 +5,9 @@ import {
   getProdutos,
 } from "./services/api.js";
 
+// Guarda temporariamente o produto selecionado para exclusão no modal.
+let produtoParaExcluir = null;
+
 // Alterna o formulário entre modo cadastro e modo edição.
 function atualizarModoFormulario(modo) {
   const formMode = document.getElementById("form-mode");
@@ -17,6 +20,54 @@ function atualizarModoFormulario(modo) {
     formMode.textContent = "Modo cadastro";
     submitButton.textContent = "Cadastrar";
   }
+}
+
+function mostrarFeedback(mensagem, tipo = "sucesso") {
+  const feedback = document.getElementById("admin-feedback");
+
+  // Quando não houver mensagem, limpa o conteúdo e o estado visual.
+  if (!mensagem) {
+    feedback.textContent = "";
+    feedback.className = "admin-feedback";
+    return;
+  }
+
+  feedback.textContent = mensagem;
+  feedback.className = `admin-feedback ${tipo}`;
+}
+
+// Abre o modal e mostra o nome do produto que será excluído.
+function abrirModalExclusao(produto) {
+  const modal = document.getElementById("delete-modal");
+  const modalText = document.getElementById("delete-modal-text");
+
+  produtoParaExcluir = produto;
+  modalText.textContent = `Tem certeza que deseja excluir o produto "${produto.name}"?`;
+  modal.classList.remove("hidden");
+}
+
+// Fecha o modal e remove o produto que estava pendente de exclusão.
+function fecharModalExclusao() {
+  const modal = document.getElementById("delete-modal");
+
+  produtoParaExcluir = null;
+  modal.classList.add("hidden");
+}
+
+// Executa a exclusão somente depois da confirmação no modal.
+async function confirmarExclusao() {
+  if (!produtoParaExcluir) return;
+
+  try {
+    await deletarProduto(produtoParaExcluir.id);
+    await carregarProdutosAdmin();
+    mostrarFeedback("Produto excluido com sucesso.");
+  } catch (error) {
+    console.error(error);
+    mostrarFeedback("Erro ao excluir produto.", "erro");
+  }
+
+  fecharModalExclusao();
 }
 
 // Busca os produtos da API e renderiza os cards no painel administrativo.
@@ -76,26 +127,15 @@ async function carregarProdutosAdmin() {
       });
 
       // Remove o produto da base e recarrega a lista ao confirmar a exclusão.
+      // Abre o modal em vez de excluir imediatamente ao clicar no card.
       botaoExcluir.addEventListener("click", async () => {
-        const confirmar = confirm(
-          `Deseja excluir o produto "${produto.name}"?`,
-        );
-
-        if (!confirmar) return;
-
-        try {
-          await deletarProduto(produto.id);
-          await carregarProdutosAdmin();
-          alert("Produto excluido com sucesso.");
-        } catch (error) {
-          console.error(error);
-          alert("Erro ao excluir produto.");
-        }
+        abrirModalExclusao(produto);
       });
     });
   } catch (error) {
     console.error(error);
-    lista.innerHTML = '<p class="admin-empty-state">Erro ao carregar produtos.</p>';
+    lista.innerHTML =
+      '<p class="admin-empty-state">Erro ao carregar produtos.</p>';
   }
 }
 
@@ -119,10 +159,10 @@ async function cadastrarProduto(event) {
     // Se existir id, atualiza; caso contrário, cria um novo produto.
     if (id) {
       await atualizarProduto(id, produto);
-      alert("Produto atualizado com sucesso.");
+      mostrarFeedback("Produto atualizado com sucesso.");
     } else {
       await criarProduto(produto);
-      alert("Produto cadastrado com sucesso.");
+      mostrarFeedback("Produto cadastrado com sucesso.");
     }
 
     form.reset();
@@ -130,7 +170,7 @@ async function cadastrarProduto(event) {
     atualizarModoFormulario("cadastro");
   } catch (error) {
     console.error(error);
-    alert("Erro ao salvar produto.");
+    mostrarFeedback("Erro ao salvar produto.", "erro");
   }
 }
 
@@ -141,12 +181,16 @@ function cancelarEdicao() {
   form.reset();
   form.elements.id.value = "";
   atualizarModoFormulario("cadastro");
+  mostrarFeedback("");
 }
 
 // Conecta os eventos da interface quando a página administrativa termina de carregar.
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("product-form");
   const cancelButton = document.getElementById("cancel-edit-button");
+  const confirmDeleteButton = document.getElementById("confirm-delete-button");
+  const cancelDeleteButton = document.getElementById("cancel-delete-button");
+  const deleteModal = document.getElementById("delete-modal");
 
   if (form) {
     form.addEventListener("submit", cadastrarProduto);
@@ -155,6 +199,30 @@ document.addEventListener("DOMContentLoaded", () => {
   if (cancelButton) {
     cancelButton.addEventListener("click", cancelarEdicao);
   }
+
+  if (confirmDeleteButton) {
+    confirmDeleteButton.addEventListener("click", confirmarExclusao);
+  }
+
+  if (cancelDeleteButton) {
+    cancelDeleteButton.addEventListener("click", fecharModalExclusao);
+  }
+
+  // Fecha o modal quando o clique acontece no fundo escuro.
+  if (deleteModal) {
+    deleteModal.addEventListener("click", (event) => {
+      if (event.target === deleteModal) {
+        fecharModalExclusao();
+      }
+    });
+  }
+
+  // Permite fechar o modal rapidamente usando a tecla Esc.
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      fecharModalExclusao();
+    }
+  });
 
   carregarProdutosAdmin();
   atualizarModoFormulario("cadastro");

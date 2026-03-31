@@ -163,6 +163,26 @@
   gap: 12px;
 }
 
+.admin-feedback {
+  min-height: 22px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Variações visuais do feedback para sucesso e erro. */
+.admin-feedback.sucesso {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.admin-feedback.erro {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+
 /* Botões principais do painel e suas variações. */
 .admin-button {
   min-height: 46px;
@@ -196,6 +216,7 @@
 /* Lista e cartão visual de cada produto renderizado. */
 .admin-product-list {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
 }
 
@@ -276,6 +297,72 @@
   color: #475569;
   background-color: rgba(255, 255, 255, 0.76);
 }
+
+
+/* Camada do modal cobrindo a tela inteira durante a confirmação. */
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(17, 24, 39, 0.55);
+  z-index: 1000;
+}
+
+/* Mantém o modal invisível até que o JavaScript remova essa classe. */
+.admin-modal.hidden {
+  display: none;
+}
+
+/* Caixa principal do modal com título, texto e ações. */
+.admin-modal-content {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
+  display: grid;
+  gap: 16px;
+}
+
+.admin-modal-content h3 {
+  font-size: 1.4rem;
+  color: #111827;
+}
+
+.admin-modal-content p {
+  color: #374151;
+}
+
+/* Agrupa os botões do modal no canto direito. */
+.admin-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.admin-modal-actions button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#confirm-delete-button {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+#cancel-delete-button {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
 
 /* Ajustes responsivos para tablet e celular. */
 @media (max-width: 900px) {
