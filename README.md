@@ -45,7 +45,16 @@ project/
       products/
     js/
       components/
+        adminProductCard.js
+        productCard.js
+      features/
+        adminForm.js
+        adminList.js
       services/
+        api.js
+      utils/
+        adminFeedback.js
+        adminModal.js
       admin.js
       main.js
     admin.html
@@ -91,10 +100,15 @@ No frontend, a organizacao atual esta assim:
 - `images/banners/`: imagens de destaque da interface
 - `images/icons/`: icones do projeto, como favicon e elementos visuais pequenos
 - `images/products/`: imagens dos produtos e placeholder
-- `js/admin.js`: carrega a lista no painel admin e controla cadastro, edicao, exclusao, feedback visual e modal
+- `js/admin.js`: inicializa e conecta os modulos da pagina admin
+- `js/components/adminProductCard.js`: monta os cards do painel admin
+- `js/components/productCard.js`: monta os cards da loja publica
+- `js/features/adminForm.js`: controla o formulario do admin, incluindo cadastro e edicao
+- `js/features/adminList.js`: controla a listagem, modal de exclusao e eventos dos cards
 - `js/main.js`: carrega os produtos quando a pagina abre
 - `js/services/api.js`: faz o `fetch` para a API
-- `js/components/`: componentes de renderizacao dos produtos
+- `js/utils/adminFeedback.js`: controla as mensagens visuais do painel
+- `js/utils/adminModal.js`: controla a abertura e o fechamento do modal de exclusao
 
 ## Pre-requisitos
 
