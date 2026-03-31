@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin | Treinando API</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <!-- Página administrativa separada da vitrine principal da loja. -->
+      <section class="store admin-page">
+        <div class="container">
+          <!-- Bloco de apresentação do painel e link de retorno para a loja. -->
+          <section class="admin-hero">
+            <div>
+              <p class="admin-eyebrow">Painel admin</p>
+              <h1>Painel administrativo</h1>
+              <p class="admin-hero-text">
+                Gerencie o catalogo, teste o CRUD no frontend e mantenha a loja
+                principal separada da area de edicao.
+              </p>
+            </div>
+
+            <a class="admin-link" href="./index.html">Voltar para a loja</a>
+          </section>
+
+          <!-- Layout em duas colunas: formulário de um lado e lista do outro. -->
+          <div class="admin-layout">
+            <section
+              class="admin-panel admin-form-panel"
+              aria-labelledby="admin-form-title"
+            >
+              <div class="admin-panel-header">
+                <p class="admin-panel-kicker">Gerenciamento</p>
+                <h2 id="admin-form-title">Cadastrar produto</h2>
+              </div>
+
+              <!-- Formulário usado tanto para cadastro quanto para edição. -->
+              <form id="product-form" class="admin-form">
+                <input type="hidden" name="id" />
+
+                <label class="admin-field">
+                  <span>Nome do produto</span>
+                  <input type="text" name="name" placeholder="Ex: Mouse Gamer RGB" />
+                </label>
+
+                <label class="admin-field">
+                  <span>Descricao</span>
+                  <input
+                    type="text"
+                    name="description"
+                    placeholder="Descricao curta do produto"
+                  />
+                </label>
+
+                <div class="admin-field-row">
+                  <label class="admin-field">
+                    <span>Marca</span>
+                    <input type="text" name="brand" placeholder="Ex: Logitech" />
+                  </label>
+
+                  <label class="admin-field">
+                    <span>Preco</span>
+                    <input
+                      type="number"
+                      name="price"
+                      placeholder="0,00"
+                      step="0.01"
+                    />
+                  </label>
+                </div>
+
+                <label class="admin-field">
+                  <span>Imagem</span>
+                  <input type="text" name="image" placeholder="mouse-gamer-rgb.png" />
+                </label>
+
+                <p id="form-mode" class="admin-form-mode">Modo cadastro</p>
+
+                <div class="admin-form-actions">
+                  <button
+                    type="submit"
+                    id="submit-button"
+                    class="admin-button admin-button-primary"
+                  >
+                    Cadastrar
+                  </button>
+                  <button
+                    type="button"
+                    id="cancel-edit-button"
+                    class="admin-button admin-button-secondary"
+                  >
+                    Cancelar edicao
+                  </button>
+                </div>
+              </form>
+            </section>
+
+            <section
+              class="admin-panel admin-list-panel"
+              aria-labelledby="admin-list-title"
+            >
+              <div class="admin-panel-header">
+                <p class="admin-panel-kicker">Catalogo</p>
+                <h2 id="admin-list-title">Lista de produtos</h2>
+              </div>
+
+              <!-- Lista preenchida dinamicamente pelo JavaScript do painel admin. -->
+              <div id="admin-product-list" class="admin-product-list"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Script responsável por carregar, cadastrar, editar e excluir produtos. -->
+    <script type="module" src="js/admin.js"></script>
+  </body>
+</html>
