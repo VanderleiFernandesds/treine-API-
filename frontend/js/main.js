@@ -1,6 +1,11 @@
 import { criarProdutoHTML } from "./components/productCard.js";
 import { getProdutos } from "./services/api.js";
 import {
+  clearAuthSession,
+  getStoredUser,
+  hasActiveSession,
+} from "./utils/auth.js";
+import {
   addToCart,
   clearCart,
   decreaseCartItem,
@@ -8,6 +13,23 @@ import {
   increaseCartItem,
   removeFromCart,
 } from "./utils/cartStore.js";
+
+function verificarAutenticacao() {
+  if (!hasActiveSession()) {
+    clearAuthSession();
+    window.location.href = "./login.html";
+  }
+}
+
+function mostrarUsuarioLogado() {
+  const userElement = document.getElementById("logged-user");
+  const user = getStoredUser();
+
+  if (!userElement || !user) return;
+
+  userElement.textContent = `Usuario: ${user.name}`;
+}
+
 
 // Formata valores monetários no padrão brasileiro.
 function formatCurrency(value) {
@@ -38,7 +60,10 @@ function renderCart() {
   const cartTotal = document.getElementById("cart-total");
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
 
   cartCount.textContent = `${totalItems} ${totalItems === 1 ? "item" : "itens"}`;
   cartTotal.textContent = `Total: ${formatCurrency(totalPrice)}`;
@@ -135,8 +160,20 @@ async function carregarProdutos() {
 
 // Conecta os eventos da vitrine e inicializa o estado salvo do carrinho.
 document.addEventListener("DOMContentLoaded", () => {
+  verificarAutenticacao();
+  mostrarUsuarioLogado();
+
   const productList = document.getElementById("store-loja");
   const clearButton = document.getElementById("cart-clear-button");
+  const logoutButton = document.getElementById("logout-button");
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      clearAuthSession();
+      window.location.href = "./login.html";
+    });
+  }
+
 
   if (productList) {
     // Escuta o evento customizado disparado pelos cards ao adicionar um item.

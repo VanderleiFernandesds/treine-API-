@@ -1,6 +1,8 @@
 import cors from 'cors';
 import express from 'express';
 import productRoutes from './routes/productRoutes.js';
+import authRoutes from "./routes/authRoutes.js";
+
 
 const app = express();
 
@@ -12,5 +14,8 @@ app.use(express.json());
 
 // Todas as rotas desse arquivo passam a começar com /api.
 app.use('/api', productRoutes);
+
+app.use("/api/auth", authRoutes);
+
 
 export default app;

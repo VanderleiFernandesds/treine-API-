@@ -1,3 +1,19 @@
+function getAuthHeaders() {
+  const token = localStorage.getItem("auth_token");
+
+  if (!token) {
+    return {
+      "Content-Type": "application/json",
+    };
+  }
+
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+}
+
+
 export async function getProdutos() {
   const response = await fetch("http://localhost:3001/api/products");
 
@@ -11,10 +27,8 @@ export async function getProdutos() {
 export async function criarProduto(produto) {
   const response = await fetch("http://localhost:3001/api/products", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(produto)
+    headers: getAuthHeaders(),
+    body: JSON.stringify(produto),
   });
 
   const data = await response.json();
@@ -29,7 +43,9 @@ export async function criarProduto(produto) {
 
 export async function deletarProduto(id) {
   const response = await fetch(`http://localhost:3001/api/products/${id}`, {
-    method: "DELETE"
+    method: "DELETE",
+    headers: getAuthHeaders(),
+
   });
 
   const data = await response.json();
@@ -45,10 +61,8 @@ export async function deletarProduto(id) {
 export async function atualizarProduto(id, produto) {
   const response = await fetch(`http://localhost:3001/api/products/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(produto)
+    headers: getAuthHeaders(),
+    body: JSON.stringify(produto),
   });
 
   const data = await response.json();
@@ -59,4 +73,3 @@ export async function atualizarProduto(id, produto) {
 
   return data;
 }
-

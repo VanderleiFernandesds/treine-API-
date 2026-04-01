@@ -1,27 +1,18 @@
 import express from "express";
-import {
-  createProduct,
-  deleteProduct,
-  getProductById,
-  getProducts,
-  updateProduct
-} from "../controllers/productController.js";
+import * as productController from "../controllers/productController.js";
+import { verifyAdmin, verifyToken } from "../middlewares/authMiddleware.js";
+
 
 const router = express.Router();
 
-// Lista todos os produtos cadastrados.
-router.get("/products", getProducts);
 
-// Cadastra um novo produto no banco.
-router.post("/products", createProduct);
+router.get("/products", productController.getProducts);
+router.get("/products/:id", productController.getProductById);
 
-// Busca um produto especifico pelo id.
-router.get("/products/:id", getProductById);
+router.post("/products", verifyToken, verifyAdmin, productController.createProduct);
+router.put("/products/:id", verifyToken, verifyAdmin, productController.updateProduct);
+router.delete("/products/:id", verifyToken, verifyAdmin, productController.deleteProduct);
 
-// Atualiza um produto existente pelo id.
-router.put("/products/:id", updateProduct);
 
-// Remove um produto do banco pelo id.
-router.delete("/products/:id", deleteProduct);
 
 export default router;

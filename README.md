@@ -4,6 +4,8 @@ Projeto de estudo com frontend em JavaScript e backend em Node.js + Express, con
 
 Hoje o projeto ja faz:
 
+- autenticar usuarios com login real usando banco de dados
+- redirecionar cliente para a loja e admin para o painel administrativo
 - exibir produtos no frontend
 - adicionar produtos em um carrinho lateral na loja publica
 - buscar produtos pela API
@@ -33,7 +35,11 @@ project/
     src/
       config/
       controllers/
+        authController.js
       routes/
+        authRoutes.js
+      middlewares/
+        authMiddleware.js
       app.js
     server.js
     package.json
@@ -56,11 +62,14 @@ project/
       utils/
         adminFeedback.js
         adminModal.js
+        auth.js
         cartStore.js
+      login.js
       admin.js
       main.js
     admin.html
     index.html
+    login.html
   README.md
 ```
 
@@ -80,7 +89,10 @@ No backend, a organizacao atual esta assim:
 
 - `src/app.js`: configura o Express, `cors`, leitura de JSON e registra as rotas
 - `src/routes/productRoutes.js`: define a rota `/api/products`
-- `src/controllers/productController.js`: executa a consulta no banco
+- `src/routes/authRoutes.js`: define a rota `/api/auth/login`
+- `src/controllers/productController.js`: executa o CRUD de produtos no banco
+- `src/controllers/authController.js`: valida email e senha, compara hash e gera JWT
+- `src/middlewares/authMiddleware.js`: valida token e restringe acoes para admin
 - `src/config/db.js`: cria a conexao com o MySQL usando variaveis de ambiente
 - `server.js`: inicia o servidor na porta `3001`
 
@@ -98,6 +110,7 @@ npm run dev
 No frontend, a organizacao atual esta assim:
 
 - `index.html`: estrutura principal da pagina
+- `login.html`: pagina de autenticacao antes de entrar na loja
 - `admin.html`: painel administrativo separado para treinar o CRUD no frontend
 - `images/banners/`: imagens de destaque da interface
 - `images/icons/`: icones do projeto, como favicon e elementos visuais pequenos
@@ -107,10 +120,12 @@ No frontend, a organizacao atual esta assim:
 - `js/components/productCard.js`: monta os cards da loja publica
 - `js/features/adminForm.js`: controla o formulario do admin, incluindo cadastro e edicao
 - `js/features/adminList.js`: controla a listagem, modal de exclusao e eventos dos cards
+- `js/login.js`: envia o login para a API e redireciona conforme o papel do usuario
 - `js/main.js`: carrega os produtos da loja e controla o carrinho lateral
 - `js/services/api.js`: faz o `fetch` para a API
 - `js/utils/adminFeedback.js`: controla as mensagens visuais do painel
 - `js/utils/adminModal.js`: controla a abertura e o fechamento do modal de exclusao
+- `js/utils/auth.js`: centraliza token, usuario salvo e verificacao de sessao
 - `js/utils/cartStore.js`: salva e recupera os itens do carrinho usando `localStorage`
 
 ## Pre-requisitos
@@ -121,6 +136,7 @@ Antes de rodar o projeto, voce precisa ter instalado:
 - MySQL
 
 Tambem e necessario ter uma base de dados com a tabela `products`.
+Para o login real, tambem e necessario ter a tabela `users`.
 
 ## Configuracao do backend
 
@@ -143,6 +159,7 @@ DB_HOST=localhost
 DB_USER=seu_usuario
 DB_PASS=sua_senha
 DB_NAME=seu_banco
+JWT_SECRET=sua_chave_secreta_jwt
 ```
 
 ## Como rodar o projeto
@@ -200,7 +217,34 @@ Nessa pagina voce pode:
 - visualizar mensagens de sucesso e erro sem usar `alert()`
 - confirmar exclusoes em um modal
 
+### 4. Fazer login
+
+Antes de acessar a loja ou o painel admin, abra:
+
+```text
+frontend/login.html
+```
+
+Fluxo atual de acesso:
+
+- usuarios com `role = customer` vao para a loja publica
+- usuarios com `role = admin` vao para o painel admin
+- usuarios sem token valido voltam para a tela de login
+
 ## Endpoints disponiveis
+
+### `POST /api/auth/login`
+
+Valida o usuario no banco, compara a senha com `bcrypt` e devolve um token JWT.
+
+Exemplo de corpo da requisicao:
+
+```json
+{
+  "email": "admin@loja.com",
+  "password": "123456"
+}
+```
 
 ### `GET /api/products`
 
@@ -286,6 +330,17 @@ Pelos dados usados no frontend, os campos mais provaveis sao:
 
 Se quiser, depois podemos documentar o SQL da tabela no proprio repositorio.
 
+Para autenticacao real, o projeto tambem usa uma tabela `users`.
+
+Campos recomendados:
+
+- `id`
+- `name`
+- `email`
+- `password_hash`
+- `role`
+- `created_at`
+
 ## Publicacao no GitHub
 
 Antes de subir o projeto:
@@ -304,12 +359,15 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - a loja publica e o painel admin foram separados em paginas diferentes
 - o painel admin usa feedback visual e modal de confirmacao para exclusao
 - a loja publica possui um carrinho lateral com persistencia local no navegador
+- o login usa JWT, `bcrypt` e controle de acesso por `role`
+- somente usuarios com `role = admin` podem acessar o painel admin e alterar produtos
 
 ## Proximos passos sugeridos
 
 - melhorar a validacao dos dados recebidos
 - padronizar ainda mais as respostas de erro
 - documentar a estrutura exata da tabela `products`
+- adicionar cadastro real de usuarios
 - adicionar testes para backend
 - adicionar busca e filtros na loja
 - evoluir o carrinho para finalizar pedido
