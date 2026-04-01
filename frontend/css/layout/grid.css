@@ -15,6 +15,9 @@
   gap: 20px;
   align-items: center;
   border: 1px solid #cccccc;
+  min-width: 300px;
+  position: sticky;
+  top: 20px;
 }
 
 /* Grade responsiva onde os cards de produto são inseridos. */

@@ -43,6 +43,25 @@
   text-transform: uppercase;
 }
 
+.product-card-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background-color: #111827;
+  color: #f9fafb;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.product-card-button:hover {
+  background-color: #1f2937;
+  transform: translateY(-1px);
+}
+
 /* Mensagem exibida quando ocorre erro ao carregar a lista. */
 .feedback {
   font-size: 1rem;

@@ -5,6 +5,7 @@ Projeto de estudo com frontend em JavaScript e backend em Node.js + Express, con
 Hoje o projeto ja faz:
 
 - exibir produtos no frontend
+- adicionar produtos em um carrinho lateral na loja publica
 - buscar produtos pela API
 - ler os dados da tabela `products` no MySQL
 - cadastrar novos produtos
@@ -55,6 +56,7 @@ project/
       utils/
         adminFeedback.js
         adminModal.js
+        cartStore.js
       admin.js
       main.js
     admin.html
@@ -105,10 +107,11 @@ No frontend, a organizacao atual esta assim:
 - `js/components/productCard.js`: monta os cards da loja publica
 - `js/features/adminForm.js`: controla o formulario do admin, incluindo cadastro e edicao
 - `js/features/adminList.js`: controla a listagem, modal de exclusao e eventos dos cards
-- `js/main.js`: carrega os produtos quando a pagina abre
+- `js/main.js`: carrega os produtos da loja e controla o carrinho lateral
 - `js/services/api.js`: faz o `fetch` para a API
 - `js/utils/adminFeedback.js`: controla as mensagens visuais do painel
 - `js/utils/adminModal.js`: controla a abertura e o fechamento do modal de exclusao
+- `js/utils/cartStore.js`: salva e recupera os itens do carrinho usando `localStorage`
 
 ## Pre-requisitos
 
@@ -171,6 +174,14 @@ http://localhost:3001
 Abra o arquivo `frontend/index.html` no navegador ou rode com uma extensao como Live Server no VS Code.
 
 Com o backend ligado, o frontend deve carregar os produtos automaticamente.
+
+Na vitrine publica voce tambem pode:
+
+- adicionar produtos ao carrinho
+- aumentar e diminuir quantidades
+- remover um item especifico
+- limpar o carrinho inteiro
+- manter o carrinho salvo no navegador com `localStorage`
 
 ### 3. Abrir o painel admin
 
@@ -292,6 +303,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - o frontend depende do backend rodando na porta `3001`
 - a loja publica e o painel admin foram separados em paginas diferentes
 - o painel admin usa feedback visual e modal de confirmacao para exclusao
+- a loja publica possui um carrinho lateral com persistencia local no navegador
 
 ## Proximos passos sugeridos
 
@@ -299,4 +311,5 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - padronizar ainda mais as respostas de erro
 - documentar a estrutura exata da tabela `products`
 - adicionar testes para backend
-- adicionar busca, filtros ou carrinho para evoluir o projeto
+- adicionar busca e filtros na loja
+- evoluir o carrinho para finalizar pedido

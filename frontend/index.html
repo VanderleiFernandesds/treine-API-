@@ -40,9 +40,29 @@
           <div class="store-grid">
             <!-- Bloco de apresentação da vitrine. -->
             <aside class="store-content" aria-labelledby="store-title">
-              <div>
+              <div class="store-sidebar">
                 <h2 class="store-text" id="store-title">Produtos</h2>
                 <p>Catálogo carregado pela API REST do projeto.</p>
+
+                <!-- Resumo do carrinho usado na vitrine pública. -->
+                <!-- Resumo lateral do carrinho visível na vitrine pública. -->
+                <section class="cart-panel" aria-labelledby="cart-title">
+                  <div class="cart-panel-header">
+                    <h3 id="cart-title">Carrinho</h3>
+                    <span class="cart-count" id="cart-count">0 itens</span>
+                  </div>
+
+                  <div class="cart-items" id="cart-items">
+                    <p class="cart-empty">Seu carrinho está vazio.</p>
+                  </div>
+
+                  <div class="cart-footer">
+                    <strong id="cart-total">Total: R$ 0,00</strong>
+                    <button class="cart-clear-button" id="cart-clear-button" type="button">
+                      Limpar carrinho
+                    </button>
+                  </div>
+                </section>
               </div>
             </aside>
 

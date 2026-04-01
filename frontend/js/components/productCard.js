@@ -28,7 +28,20 @@ export function criarProdutoHTML(produto) {
       ${produto.brand ?? "Marca nao informada"}
     </span>
     <strong>R$ ${Number(produto.price).toFixed(2)}</strong>
+    <button class="product-card-button" type="button">
+      Adicionar ao carrinho
+    </button>
   `;
+
+  const addButton = item.querySelector(".product-card-button");
+  addButton.addEventListener("click", () => {
+    item.dispatchEvent(
+      new CustomEvent("add-to-cart", {
+        bubbles: true,
+        detail: produto,
+      }),
+    );
+  });
 
   return item;
 }
