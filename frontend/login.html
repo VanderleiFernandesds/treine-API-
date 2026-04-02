@@ -13,11 +13,14 @@
         <p class="login-kicker">Acesso protegido</p>
         <h1 id="login-title">Entre para acessar a loja e o painel.</h1>
         <p class="login-description">
-          Clientes entram na vitrine, administradores seguem direto para o painel
-          de gerenciamento de produtos.
+          Clientes entram na vitrine, administradores seguem direto para o
+          painel de gerenciamento de produtos.
         </p>
 
-        <ul class="login-highlights" aria-label="Recursos disponiveis apos o login">
+        <ul
+          class="login-highlights"
+          aria-label="Recursos disponiveis apos o login"
+        >
           <li>Catalogo com carrinho lateral salvo no navegador</li>
           <li>Painel admin com CRUD, feedback visual e modal</li>
           <li>Autenticacao real com JWT, bcrypt e controle por perfil</li>
@@ -28,20 +31,28 @@
       <section class="login-card" aria-labelledby="login-form-title">
         <p class="login-card-kicker">Autenticacao</p>
         <h2 id="login-form-title">Bem-vindo de volta</h2>
-        <p class="login-card-text">
-          Use seu email e senha para continuar.
-        </p>
+        <p class="login-card-text">Use seu email e senha para continuar.</p>
 
         <form id="login-form" class="login-form">
           <!-- Campos usados para enviar email e senha para a API de login. -->
           <label class="login-field">
             <span>Email</span>
-            <input type="email" name="email" placeholder="admin@loja.com" required />
+            <input
+              type="email"
+              name="email"
+              placeholder="admin@loja.com"
+              required
+            />
           </label>
 
           <label class="login-field">
             <span>Senha</span>
-            <input type="password" name="password" placeholder="Sua senha" required />
+            <input
+              type="password"
+              name="password"
+              placeholder="Sua senha"
+              required
+            />
           </label>
 
           <button class="login-button" type="submit">Entrar</button>
@@ -49,6 +60,10 @@
 
         <!-- Area onde o JavaScript mostra erros ou mensagens do login. -->
         <p id="login-feedback" class="login-feedback" aria-live="polite"></p>
+        <p class="login-switch">
+          Ainda nao tem conta?
+          <a href="./register.html">Criar cadastro</a>
+        </p>
       </section>
     </main>
 

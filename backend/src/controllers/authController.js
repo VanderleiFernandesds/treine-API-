@@ -51,3 +51,48 @@ export const login = (req, res) => {
     });
   });
 };
+
+// Cadastra um novo usuario comum, impedindo email duplicado e salvando a senha com hash.
+export const register = (req, res) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: "Nome, email e senha sao obrigatorios." });
+  }
+
+  // Primeiro verifica se ja existe outra conta usando o mesmo email.
+  const checkUserQuery = "SELECT id FROM users WHERE email = ?";
+
+  db.query(checkUserQuery, [email], async (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+
+    if (result.length > 0) {
+      return res.status(409).json({ error: "Este email ja esta cadastrado." });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // O cadastro publico sempre cria usuarios com role customer.
+    const insertUserQuery = `
+      INSERT INTO users (name, email, password_hash, role)
+      VALUES (?, ?, ?, ?)
+    `;
+
+    const values = [name, email, passwordHash, "customer"];
+
+    db.query(insertUserQuery, values, (insertErr, insertResult) => {
+      if (insertErr) return res.status(500).json({ error: insertErr.message });
+
+      res.status(201).json({
+        message: "Usuario cadastrado com sucesso.",
+        user: {
+          id: insertResult.insertId,
+          name,
+          email,
+          role: "customer",
+        },
+      });
+    });
+  });
+};
+

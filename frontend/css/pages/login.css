@@ -176,6 +176,23 @@
   color: #b91c1c;
 }
 
+.login-switch {
+  margin-top: 12px;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.login-switch a {
+  color: #c2410c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-switch a:hover {
+  text-decoration: underline;
+}
+
+
 /* Ajustes para tablet e celular. */
 @media (max-width: 920px) {
   .login-shell {

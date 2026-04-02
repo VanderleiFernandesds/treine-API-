@@ -5,6 +5,7 @@ Projeto de estudo com frontend em JavaScript e backend em Node.js + Express, con
 Hoje o projeto ja faz:
 
 - autenticar usuarios com login real usando banco de dados
+- cadastrar novos usuarios customer pela interface
 - redirecionar cliente para a loja e admin para o painel administrativo
 - exibir produtos no frontend
 - adicionar produtos em um carrinho lateral na loja publica
@@ -65,11 +66,13 @@ project/
         auth.js
         cartStore.js
       login.js
+      register.js
       admin.js
       main.js
     admin.html
     index.html
     login.html
+    register.html
   README.md
 ```
 
@@ -89,7 +92,7 @@ No backend, a organizacao atual esta assim:
 
 - `src/app.js`: configura o Express, `cors`, leitura de JSON e registra as rotas
 - `src/routes/productRoutes.js`: define a rota `/api/products`
-- `src/routes/authRoutes.js`: define a rota `/api/auth/login`
+- `src/routes/authRoutes.js`: define as rotas `/api/auth/login` e `/api/auth/register`
 - `src/controllers/productController.js`: executa o CRUD de produtos no banco
 - `src/controllers/authController.js`: valida email e senha, compara hash e gera JWT
 - `src/middlewares/authMiddleware.js`: valida token e restringe acoes para admin
@@ -111,6 +114,7 @@ No frontend, a organizacao atual esta assim:
 
 - `index.html`: estrutura principal da pagina
 - `login.html`: pagina de autenticacao antes de entrar na loja
+- `register.html`: pagina de cadastro publico para novos clientes
 - `admin.html`: painel administrativo separado para treinar o CRUD no frontend
 - `images/banners/`: imagens de destaque da interface
 - `images/icons/`: icones do projeto, como favicon e elementos visuais pequenos
@@ -121,6 +125,7 @@ No frontend, a organizacao atual esta assim:
 - `js/features/adminForm.js`: controla o formulario do admin, incluindo cadastro e edicao
 - `js/features/adminList.js`: controla a listagem, modal de exclusao e eventos dos cards
 - `js/login.js`: envia o login para a API e redireciona conforme o papel do usuario
+- `js/register.js`: envia o cadastro para a API e redireciona para o login
 - `js/main.js`: carrega os produtos da loja e controla o carrinho lateral
 - `js/services/api.js`: faz o `fetch` para a API
 - `js/utils/adminFeedback.js`: controla as mensagens visuais do painel
@@ -231,6 +236,22 @@ Fluxo atual de acesso:
 - usuarios com `role = admin` vao para o painel admin
 - usuarios sem token valido voltam para a tela de login
 
+### 5. Fazer cadastro
+
+Novos clientes podem criar conta em:
+
+```text
+frontend/register.html
+```
+
+Fluxo atual de cadastro:
+
+- o formulario envia nome, email e senha para `/api/auth/register`
+- o backend valida email duplicado
+- a senha e salva com hash usando `bcrypt`
+- novas contas entram sempre com `role = customer`
+- apos o sucesso, o usuario e redirecionado para `login.html`
+
 ## Endpoints disponiveis
 
 ### `POST /api/auth/login`
@@ -242,6 +263,20 @@ Exemplo de corpo da requisicao:
 ```json
 {
   "email": "admin@loja.com",
+  "password": "123456"
+}
+```
+
+### `POST /api/auth/register`
+
+Cria um novo usuario customer no banco com senha protegida por hash.
+
+Exemplo de corpo da requisicao:
+
+```json
+{
+  "name": "Joao Teste",
+  "email": "joao@loja.com",
   "password": "123456"
 }
 ```
@@ -360,6 +395,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - o painel admin usa feedback visual e modal de confirmacao para exclusao
 - a loja publica possui um carrinho lateral com persistencia local no navegador
 - o login usa JWT, `bcrypt` e controle de acesso por `role`
+- o cadastro publico cria apenas usuarios com `role = customer`
 - somente usuarios com `role = admin` podem acessar o painel admin e alterar produtos
 
 ## Proximos passos sugeridos
@@ -367,7 +403,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - melhorar a validacao dos dados recebidos
 - padronizar ainda mais as respostas de erro
 - documentar a estrutura exata da tabela `products`
-- adicionar cadastro real de usuarios
 - adicionar testes para backend
 - adicionar busca e filtros na loja
 - evoluir o carrinho para finalizar pedido
+- permitir edicao de perfil ou historico do usuario

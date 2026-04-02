@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro | Loja</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="login-page">
+    <main class="login-shell">
+      <!-- Bloco de contexto explicando que o cadastro publico cria contas de cliente. -->
+      <section class="login-hero" aria-labelledby="register-title">
+        <p class="login-kicker">Novo acesso</p>
+        <h1 id="register-title">Crie sua conta para entrar na loja.</h1>
+        <p class="login-description">
+          O cadastro publico cria usuarios do tipo customer. O acesso administrativo continua separado.
+        </p>
+      </section>
+
+      <!-- Card principal com o formulario de criacao de conta. -->
+      <section class="login-card" aria-labelledby="register-form-title">
+        <p class="login-card-kicker">Cadastro</p>
+        <h2 id="register-form-title">Criar conta</h2>
+        <p class="login-card-text">
+          Preencha seus dados para continuar.
+        </p>
+
+        <form id="register-form" class="login-form">
+          <!-- Campos necessarios para criar um novo usuario customer. -->
+          <label class="login-field">
+            <span>Nome</span>
+            <input type="text" name="name" placeholder="Seu nome" required />
+          </label>
+
+          <label class="login-field">
+            <span>Email</span>
+            <input type="email" name="email" placeholder="seuemail@loja.com" required />
+          </label>
+
+          <label class="login-field">
+            <span>Senha</span>
+            <input type="password" name="password" placeholder="Sua senha" required />
+          </label>
+
+          <label class="login-field">
+            <span>Confirmar senha</span>
+            <input type="password" name="confirmPassword" placeholder="Repita sua senha" required />
+          </label>
+
+          <button class="login-button" type="submit">Cadastrar</button>
+        </form>
+
+        <!-- Area para mensagens de erro, sucesso e navegacao entre cadastro e login. -->
+        <p id="register-feedback" class="login-feedback" aria-live="polite"></p>
+        <p class="login-switch">
+          Ja tem conta?
+          <a href="./login.html">Fazer login</a>
+        </p>
+      </section>
+    </main>
+
+    <!-- Script que envia o cadastro para a API e redireciona para o login. -->
+    <script type="module" src="js/register.js"></script>
+  </body>
+</html>
