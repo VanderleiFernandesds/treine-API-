@@ -2,14 +2,16 @@
 @import url("./css/base/reset.css");
 @import url("./css/base/typography.css");
 
-/* Estrutura principal da página. */
+/* Estrutura principal da pagina. */
 @import url("./css/layout/container.css");
 @import url("./css/layout/header.css");
 @import url("./css/layout/grid.css");
 
-/* Componentes reutilizáveis. */
+/* Componentes reutilizaveis. */
 @import url("./css/components/product-card.css");
 
-/* Estilos específicos da página inicial. */
+/* Estilos especificos das paginas. */
 @import url("./css/pages/store.css");
 @import url("./css/pages/admin.css");
+/* Pagina de autenticacao com layout proprio. */
+@import url("./css/pages/login.css");
