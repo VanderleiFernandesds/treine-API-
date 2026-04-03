@@ -10,6 +10,31 @@ section.store {
   width: 100%;
 }
 
+/* Bloco que agrupa usuario logado e acao de logout na lateral da loja. */
+.store-user-panel {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.store-user-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0f766e;
+}
+
+.logged-user {
+  color: #334155;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 /* Cartão lateral que resume o estado do carrinho. */
 .cart-panel {
   display: grid;
@@ -193,13 +218,57 @@ section.store {
   color: #6b7280;
 }
 
+.logout-button {
+  justify-self: start;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background-color: #111827;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  transform: translateY(-1px);
+  background-color: #1f2937;
+}
+
+/* Ajustes intermediarios para tablet e telas menores. */
 @media (max-width: 900px) {
+  .store-user-panel {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .store-user-kicker,
+  .logged-user {
+    grid-column: 1 / -1;
+  }
+
   .cart-panel {
     max-height: none;
   }
 }
 
+/* Ajustes finais para o mobile, incluindo empilhamento do carrinho. */
 @media (max-width: 640px) {
+  .store-sidebar {
+    gap: 16px;
+  }
+
+  .store-user-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .logout-button {
+    justify-self: stretch;
+  }
+
   .cart-item-top,
   .cart-item-bottom {
     flex-direction: column;

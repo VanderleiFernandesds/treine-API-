@@ -9,6 +9,7 @@ Hoje o projeto ja faz:
 - redirecionar cliente para a loja e admin para o painel administrativo
 - exibir produtos no frontend
 - adicionar produtos em um carrinho lateral na loja publica
+- mostrar a sessao ativa do usuario com logout visivel na loja
 - buscar produtos pela API
 - ler os dados da tabela `products` no MySQL
 - cadastrar novos produtos
@@ -204,6 +205,8 @@ Na vitrine publica voce tambem pode:
 - remover um item especifico
 - limpar o carrinho inteiro
 - manter o carrinho salvo no navegador com `localStorage`
+- visualizar o usuario logado e sair pela lateral da loja
+- navegar em um layout ajustado para desktop, tablet e mobile
 
 ### 3. Abrir o painel admin
 
@@ -394,6 +397,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - a loja publica e o painel admin foram separados em paginas diferentes
 - o painel admin usa feedback visual e modal de confirmacao para exclusao
 - a loja publica possui um carrinho lateral com persistencia local no navegador
+- a loja publica mostra a sessao ativa e um botao de logout na sidebar
 - o login usa JWT, `bcrypt` e controle de acesso por `role`
 - o cadastro publico cria apenas usuarios com `role = customer`
 - somente usuarios com `role = admin` podem acessar o painel admin e alterar produtos

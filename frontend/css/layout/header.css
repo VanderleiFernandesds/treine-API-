@@ -1,4 +1,4 @@
-/* Área externa do cabeçalho que centraliza o banner. */
+/* Ãrea externa do cabeÃ§alho que centraliza o banner. */
 header.store-header {
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@ header.store-header {
   justify-content: center;
 }
 
-/* Garante que qualquer conteúdo sobre o banner fique visível. */
+/* Garante que qualquer conteÃºdo sobre o banner fique visÃ­vel. */
 .store-header-banner > * {
   position: relative;
   z-index: 1;
