@@ -6,6 +6,37 @@ import {
 const form = document.getElementById("login-form");
 const feedback = document.getElementById("login-feedback");
 
+// Captura o retorno do Google na URL, salva a sessao local e segue o fluxo normal do sistema.
+function processarRetornoGoogle() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  const user = params.get("user");
+
+  if (!token || !user) {
+    return false;
+  }
+
+  localStorage.setItem("auth_token", token);
+  localStorage.setItem("auth_user", decodeURIComponent(user));
+
+  const parsedUser = JSON.parse(decodeURIComponent(user));
+
+  if (parsedUser.role === "admin") {
+    window.location.href = "./admin.html";
+  } else {
+    window.location.href = "./index.html";
+  }
+
+  return true;
+}
+
+
+// Se nao houver retorno do Google, segue a validacao comum da tela de login.
+if (!processarRetornoGoogle()) {
+  verificarLoginExistente();
+}
+
+
 // Evita mostrar a tela de login para quem ainda tem sessao valida.
 function verificarLoginExistente() {
   if (hasActiveSession()) {
@@ -16,7 +47,7 @@ function verificarLoginExistente() {
   clearAuthSession();
 }
 
-verificarLoginExistente();
+
 
 // Envia email e senha para a API, salva a sessao local e redireciona conforme o papel.
 form.addEventListener("submit", async (event) => {
@@ -59,4 +90,3 @@ form.addEventListener("submit", async (event) => {
     feedback.textContent = error.message;
   }
 });
-

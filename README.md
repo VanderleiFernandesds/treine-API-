@@ -5,6 +5,7 @@ Projeto de estudo com frontend em JavaScript e backend em Node.js + Express, con
 Hoje o projeto ja faz:
 
 - autenticar usuarios com login real usando banco de dados
+- oferecer Google Login como segunda opcao de acesso
 - cadastrar novos usuarios customer pela interface
 - redirecionar cliente para a loja e admin para o painel administrativo
 - exibir produtos no frontend
@@ -36,6 +37,7 @@ project/
   backend/
     src/
       config/
+        passport.js
       controllers/
         authController.js
       routes/
@@ -94,6 +96,7 @@ No backend, a organizacao atual esta assim:
 - `src/app.js`: configura o Express, `cors`, leitura de JSON e registra as rotas
 - `src/routes/productRoutes.js`: define a rota `/api/products`
 - `src/routes/authRoutes.js`: define as rotas `/api/auth/login` e `/api/auth/register`
+- `src/config/passport.js`: configura a estrategia Google OAuth e cria usuarios sociais
 - `src/controllers/productController.js`: executa o CRUD de produtos no banco
 - `src/controllers/authController.js`: valida email e senha, compara hash e gera JWT
 - `src/middlewares/authMiddleware.js`: valida token e restringe acoes para admin
@@ -126,6 +129,7 @@ No frontend, a organizacao atual esta assim:
 - `js/features/adminForm.js`: controla o formulario do admin, incluindo cadastro e edicao
 - `js/features/adminList.js`: controla a listagem, modal de exclusao e eventos dos cards
 - `js/login.js`: envia o login para a API e redireciona conforme o papel do usuario
+- `js/login.js`: tambem processa o retorno do Google Login
 - `js/register.js`: envia o cadastro para a API e redireciona para o login
 - `js/main.js`: carrega os produtos da loja e controla o carrinho lateral
 - `js/services/api.js`: faz o `fetch` para a API
@@ -238,6 +242,7 @@ Fluxo atual de acesso:
 - usuarios com `role = customer` vao para a loja publica
 - usuarios com `role = admin` vao para o painel admin
 - usuarios sem token valido voltam para a tela de login
+- o usuario tambem pode entrar com a conta Google como segunda opcao
 
 ### 5. Fazer cadastro
 
@@ -269,6 +274,10 @@ Exemplo de corpo da requisicao:
   "password": "123456"
 }
 ```
+
+### `GET /api/auth/google`
+
+Inicia o fluxo de autenticacao social com Google OAuth.
 
 ### `POST /api/auth/register`
 
@@ -377,6 +386,7 @@ Campos recomendados:
 - `email`
 - `password_hash`
 - `role`
+- `google_id`
 - `created_at`
 
 ## Publicacao no GitHub
@@ -399,6 +409,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - a loja publica possui um carrinho lateral com persistencia local no navegador
 - a loja publica mostra a sessao ativa e um botao de logout na sidebar
 - o login usa JWT, `bcrypt` e controle de acesso por `role`
+- o projeto tambem aceita login social com Google
 - o cadastro publico cria apenas usuarios com `role = customer`
 - somente usuarios com `role = admin` podem acessar o painel admin e alterar produtos
 
