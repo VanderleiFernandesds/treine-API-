@@ -67,7 +67,6 @@ project/
         adminList.js
         adminUpload.js
       services/
-        api.js
         httpHeaders.js
         productService.js
         uploadService.js
@@ -143,7 +142,6 @@ No frontend, a organizacao atual esta assim:
 - `js/login.js`: tambem processa o retorno do Google Login
 - `js/register.js`: envia o cadastro para a API e redireciona para o login
 - `js/main.js`: carrega os produtos da loja e controla o carrinho lateral
-- `js/services/api.js`: arquivo de compatibilidade durante a divisao dos servicos
 - `js/services/httpHeaders.js`: concentra os headers autenticados usados nos services
 - `js/services/productService.js`: concentra as chamadas de produto
 - `js/services/uploadService.js`: concentra o upload de imagem para o admin
@@ -427,6 +425,7 @@ Antes de subir o projeto:
 - revise se nao existe nenhuma credencial salva em arquivos versionados
 
 O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env`, logs e arquivos locais do editor.
+Os arquivos enviados para `backend/uploads` tambem devem ficar fora do Git, mantendo apenas a pasta base.
 
 ## Observacoes
 

@@ -5,6 +5,10 @@ node_modules/
 .env
 *.env
 
+# Local uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
+
 # Logs
 logs/
 *.log
