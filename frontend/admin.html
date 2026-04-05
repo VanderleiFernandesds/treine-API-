@@ -17,7 +17,8 @@
               <p class="admin-eyebrow">Gerenciamento</p>
               <h1>Produtos</h1>
               <p class="admin-hero-text">
-                Edite o catalogo da loja em uma interface separada da vitrine publica.
+                Edite o catalogo da loja em uma interface separada da vitrine
+                publica.
               </p>
             </div>
 
@@ -35,7 +36,11 @@
                   <p class="admin-panel-kicker">Catalogo</p>
                   <h2 id="admin-list-title">Lista de produtos</h2>
                 </div>
-                <button class="admin-table-add-button" id="open-form-button" type="button">
+                <button
+                  class="admin-table-add-button"
+                  id="open-form-button"
+                  type="button"
+                >
                   Novo produto
                 </button>
               </div>
@@ -80,7 +85,7 @@
             class="admin-modal-close"
             aria-label="Fechar formulario"
           >
-            ×
+            x
           </button>
         </div>
 
@@ -90,11 +95,7 @@
 
           <label class="admin-field">
             <span>Nome do produto</span>
-            <input
-              type="text"
-              name="name"
-              placeholder="Ex: Mouse Gamer RGB"
-            />
+            <input type="text" name="name" placeholder="Ex: Mouse Gamer RGB" />
           </label>
 
           <label class="admin-field">
@@ -109,11 +110,7 @@
           <div class="admin-field-row">
             <label class="admin-field">
               <span>Marca</span>
-              <input
-                type="text"
-                name="brand"
-                placeholder="Ex: Logitech"
-              />
+              <input type="text" name="brand" placeholder="Ex: Logitech" />
             </label>
 
             <label class="admin-field">
@@ -128,13 +125,46 @@
           </div>
 
           <label class="admin-field">
-            <span>Imagem</span>
+            <span>Imagem atual</span>
             <input
               type="text"
               name="image"
-              placeholder="mouse-gamer-rgb.png"
+              placeholder="/uploads/nome-da-imagem.png"
             />
           </label>
+
+          <div class="admin-field">
+            <span>Nova imagem</span>
+
+            <!-- Area visual de upload com clique e suporte a drag and drop. -->
+            <label
+              class="admin-upload-dropzone"
+              id="admin-upload-dropzone"
+              for="image-file-input"
+            >
+              <input
+                id="image-file-input"
+                class="admin-upload-input"
+                type="file"
+                name="imageFile"
+                accept="image/png, image/jpeg, image/webp, image/svg+xml"
+              />
+
+              <span class="admin-upload-icon">&darr;</span>
+              <p class="admin-upload-title">Choose a file</p>
+              <p class="admin-upload-subtitle">or drag it here.</p>
+
+              <!-- Nome do arquivo escolhido ou arrastado para a dropzone. -->
+              <small id="upload-file-name" class="admin-upload-file-name">
+                Nenhum arquivo selecionado
+              </small>
+            </label>
+          </div>
+
+          <p class="admin-upload-hint">
+            Se voce selecionar um arquivo, o sistema fara upload antes de salvar
+            o produto.
+          </p>
 
           <!-- Indicador visual do modo atual: cadastro ou edicao. -->
           <p id="form-mode" class="admin-form-mode">Modo cadastro</p>

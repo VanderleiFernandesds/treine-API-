@@ -1,4 +1,8 @@
-import { atualizarProduto, criarProduto } from "../services/api.js";
+import {
+  atualizarProduto,
+  criarProduto,
+  uploadImagemProduto,
+} from "../services/api.js";
 import { mostrarFeedback } from "../utils/adminFeedback.js";
 
 export function createAdminFormController({ onSaved }) {
@@ -50,6 +54,7 @@ export function createAdminFormController({ onSaved }) {
     form.elements.brand.value = produto.brand ?? "";
     form.elements.price.value = produto.price ?? "";
     form.elements.image.value = produto.image ?? "";
+    form.elements.imageFile.value = "";
     atualizarModoFormulario("edicao");
   }
 
@@ -61,6 +66,13 @@ export function createAdminFormController({ onSaved }) {
     form.elements.id.value = "";
     atualizarModoFormulario("cadastro");
     mostrarFeedback("");
+
+    const uploadFileName = document.getElementById("upload-file-name");
+
+    if (uploadFileName) {
+      uploadFileName.textContent = "Nenhum arquivo selecionado";
+    }
+
     closeFormPanel();
   }
 
@@ -71,13 +83,22 @@ export function createAdminFormController({ onSaved }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const id = formData.get("id");
+    const imageFile = formData.get("imageFile");
+    let imagePath = formData.get("image")?.trim();
+
+    // Se houver arquivo novo, o upload acontece antes de salvar os dados do produto.
+    if (imageFile instanceof File && imageFile.size > 0) {
+      mostrarFeedback("Enviando imagem...", "sucesso");
+      const uploadData = await uploadImagemProduto(imageFile);
+      imagePath = uploadData.path;
+    }
 
     const produto = {
       name: formData.get("name")?.trim(),
       description: formData.get("description")?.trim(),
       brand: formData.get("brand")?.trim(),
       price: formData.get("price"),
-      image: formData.get("image")?.trim(),
+      image: imagePath,
     };
 
     try {
@@ -105,8 +126,55 @@ export function createAdminFormController({ onSaved }) {
     const form = document.getElementById("product-form");
     const cancelButton = document.getElementById("cancel-edit-button");
     const openFormButton = document.getElementById("open-form-button");
-    const closeFormIconButton = document.getElementById("close-form-icon-button");
+    const closeFormIconButton = document.getElementById(
+      "close-form-icon-button",
+    );
     const formModal = getFormModal();
+    const imageInput = document.getElementById("image-file-input");
+    const uploadFileName = document.getElementById("upload-file-name");
+    const uploadDropzone = document.getElementById("admin-upload-dropzone");
+
+    if (uploadDropzone) {
+      // Permite o drop e realca a area enquanto o arquivo esta sobre ela.
+      uploadDropzone.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        uploadDropzone.classList.add("is-dragover");
+      });
+
+      // Ao soltar, o arquivo passa a preencher o mesmo input usado no upload normal.
+      uploadDropzone.addEventListener("drop", (event) => {
+        event.preventDefault();
+        uploadDropzone.classList.remove("is-dragover");
+
+        const droppedFile = event.dataTransfer?.files?.[0];
+
+        if (!droppedFile || !imageInput) return;
+
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(droppedFile);
+        imageInput.files = dataTransfer.files;
+
+        if (uploadFileName) {
+          uploadFileName.textContent = droppedFile.name;
+        }
+      });
+
+      // Remove o destaque quando o usuario sai da area sem soltar o arquivo.
+      uploadDropzone.addEventListener("dragleave", () => {
+        uploadDropzone.classList.remove("is-dragover");
+      });
+    }
+
+    // Clique tradicional e drag and drop atualizam o mesmo texto com o nome do arquivo.
+    if (imageInput && uploadFileName) {
+      imageInput.addEventListener("change", () => {
+        const selectedFile = imageInput.files?.[0];
+
+        uploadFileName.textContent = selectedFile
+          ? selectedFile.name
+          : "Nenhum arquivo selecionado";
+      });
+    }
 
     if (form) {
       form.addEventListener("submit", cadastrarProduto);
@@ -128,6 +196,11 @@ export function createAdminFormController({ onSaved }) {
         currentForm.elements.id.value = "";
         mostrarFeedback("");
         atualizarModoFormulario("cadastro");
+
+        if (uploadFileName) {
+          uploadFileName.textContent = "Nenhum arquivo selecionado";
+        }
+
         openFormPanel();
       });
     }
@@ -143,7 +216,11 @@ export function createAdminFormController({ onSaved }) {
 
     // Esc oferece um atalho rapido para sair do formulario.
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && formModal && !formModal.classList.contains("hidden")) {
+      if (
+        event.key === "Escape" &&
+        formModal &&
+        !formModal.classList.contains("hidden")
+      ) {
         cancelarEdicao();
       }
     });

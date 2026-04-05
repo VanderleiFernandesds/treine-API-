@@ -52,6 +52,23 @@ function normalizarNomeImagem(imageName) {
     .replace(/\s+/g, "-");
 }
 
+function getProductImageSrc(imageName) {
+  if (!imageName) {
+    return "./images/products/placeholder.png";
+  }
+
+  if (imageName.startsWith("http://") || imageName.startsWith("https://")) {
+    return imageName;
+  }
+
+  if (imageName.startsWith("/uploads/")) {
+    return `http://localhost:3001${imageName}`;
+  }
+
+  const normalizedName = normalizarNomeImagem(imageName);
+  return `./images/products/${normalizedName}`;
+}
+
 // Atualiza visualmente o carrinho lateral com itens, quantidades e total.
 function renderCart() {
   const cart = getCart();
@@ -78,14 +95,14 @@ function renderCart() {
   cart.forEach((item) => {
     const cartItem = document.createElement("article");
     cartItem.className = "cart-item";
-    const imageName = normalizarNomeImagem(item.image);
+    const imageSrc = getProductImageSrc(item.image);
 
     cartItem.innerHTML = `
       <div class="cart-item-top">
         <div class="cart-item-summary">
           <img
             class="cart-item-image"
-            src="./images/products/${imageName}"
+            src="${imageSrc}"
             alt="${item.name}"
           >
           <div class="cart-item-info">

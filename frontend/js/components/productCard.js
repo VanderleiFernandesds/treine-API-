@@ -12,14 +12,31 @@ function normalizarNomeImagem(imageName) {
   return normalizedName;
 }
 
+function getProductImageSrc(imageName) {
+  if (!imageName) {
+    return "./images/products/placeholder.png";
+  }
+
+  if (imageName.startsWith("http://") || imageName.startsWith("https://")) {
+    return imageName;
+  }
+
+  if (imageName.startsWith("/uploads/")) {
+    return `http://localhost:3001${imageName}`;
+  }
+
+  const normalizedName = normalizarNomeImagem(imageName);
+  return `./images/products/${normalizedName}`;
+}
+
 export function criarProdutoHTML(produto) {
   const item = document.createElement("article");
   item.className = "product-card";
-  const imageName = normalizarNomeImagem(produto.image);
+  const imageSrc = getProductImageSrc(produto.image);
 
   item.innerHTML = `
     <img class="product-image"
-      src="./images/products/${imageName}"
+      src="${imageSrc}"
       alt="${produto.name}">
       
     <h2>${produto.name}</h2>

@@ -13,6 +13,17 @@ function getAuthHeaders() {
   };
 }
 
+function getUploadHeaders() {
+  const token = localStorage.getItem("auth_token");
+
+  if (!token) {
+    return {};
+  }
+
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+}
 
 export async function getProdutos() {
   const response = await fetch("http://localhost:3001/api/products");
@@ -63,6 +74,26 @@ export async function atualizarProduto(id, produto) {
     method: "PUT",
     headers: getAuthHeaders(),
     body: JSON.stringify(produto),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error ?? `HTTP ${response.status}`);
+  }
+
+  return data;
+}
+
+export async function uploadImagemProduto(file) {
+  // O upload vai em multipart/form-data, por isso usamos FormData sem Content-Type manual.
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch("http://localhost:3001/api/upload", {
+    method: "POST",
+    headers: getUploadHeaders(),
+    body: formData,
   });
 
   const data = await response.json();

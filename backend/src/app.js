@@ -4,6 +4,8 @@ import productRoutes from './routes/productRoutes.js';
 import authRoutes from "./routes/authRoutes.js";
 import session from "express-session";
 import passport from "./config/passport.js";
+import path from "path";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 
 
@@ -31,5 +33,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/uploads", express.static(path.resolve("uploads")));
+app.use("/api/upload", uploadRoutes);
 
 export default app;

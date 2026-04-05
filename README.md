@@ -14,6 +14,7 @@ Hoje o projeto ja faz:
 - buscar produtos pela API
 - ler os dados da tabela `products` no MySQL
 - cadastrar novos produtos
+- enviar imagens reais para o backend e reutilizar o caminho salvo no produto
 - buscar um produto por id
 - atualizar produtos existentes
 - remover produtos
@@ -38,13 +39,16 @@ project/
     src/
       config/
         passport.js
+        upload.js
       controllers/
         authController.js
       routes/
         authRoutes.js
+        uploadRoutes.js
       middlewares/
         authMiddleware.js
       app.js
+    uploads/
     server.js
     package.json
     .env.example
@@ -96,7 +100,9 @@ No backend, a organizacao atual esta assim:
 - `src/app.js`: configura o Express, `cors`, leitura de JSON e registra as rotas
 - `src/routes/productRoutes.js`: define a rota `/api/products`
 - `src/routes/authRoutes.js`: define as rotas `/api/auth/login` e `/api/auth/register`
+- `src/routes/uploadRoutes.js`: define a rota `/api/upload` para o admin enviar imagens
 - `src/config/passport.js`: configura a estrategia Google OAuth e cria usuarios sociais
+- `src/config/upload.js`: configura o `multer` para salvar imagens localmente
 - `src/controllers/productController.js`: executa o CRUD de produtos no banco
 - `src/controllers/authController.js`: valida email e senha, compara hash e gera JWT
 - `src/middlewares/authMiddleware.js`: valida token e restringe acoes para admin
@@ -133,6 +139,7 @@ No frontend, a organizacao atual esta assim:
 - `js/register.js`: envia o cadastro para a API e redireciona para o login
 - `js/main.js`: carrega os produtos da loja e controla o carrinho lateral
 - `js/services/api.js`: faz o `fetch` para a API
+- `js/services/api.js`: tambem envia imagens em `multipart/form-data` para `/api/upload`
 - `js/utils/adminFeedback.js`: controla as mensagens visuais do painel
 - `js/utils/adminModal.js`: controla a abertura e o fechamento do modal de exclusao
 - `js/utils/auth.js`: centraliza token, usuario salvo e verificacao de sessao
@@ -228,6 +235,7 @@ Nessa pagina voce pode:
 - alternar entre modo cadastro e modo edicao
 - visualizar mensagens de sucesso e erro sem usar `alert()`
 - confirmar exclusoes em um modal
+- selecionar imagem por clique ou drag and drop antes de salvar o produto
 
 ### 4. Fazer login
 
@@ -342,6 +350,20 @@ Exemplo de corpo da requisicao:
 }
 ```
 
+### `POST /api/upload`
+
+Recebe uma imagem enviada pelo painel admin, salva o arquivo em `backend/uploads` e devolve o caminho pronto para ser usado no produto.
+
+Exemplo de resposta:
+
+```json
+{
+  "message": "Upload realizado com sucesso.",
+  "filename": "1775360359409-produto.png",
+  "path": "/uploads/1775360359409-produto.png"
+}
+```
+
 ### `PUT /api/products/:id`
 
 Atualiza os dados de um produto existente com base no `id`.
@@ -406,6 +428,7 @@ O `.gitignore` do projeto ja esta configurado para ignorar `node_modules`, `.env
 - o frontend depende do backend rodando na porta `3001`
 - a loja publica e o painel admin foram separados em paginas diferentes
 - o painel admin usa feedback visual e modal de confirmacao para exclusao
+- o painel admin tambem aceita upload local de imagem, inclusive com drag and drop
 - a loja publica possui um carrinho lateral com persistencia local no navegador
 - a loja publica mostra a sessao ativa e um botao de logout na sidebar
 - o login usa JWT, `bcrypt` e controle de acesso por `role`
