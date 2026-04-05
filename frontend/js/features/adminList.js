@@ -1,4 +1,4 @@
-import { deletarProduto, getProdutos } from "../services/api.js";
+import { deletarProduto, getProdutos } from "../services/productService.js";
 import { criarAdminProductCard } from "../components/adminProductCard.js";
 import { mostrarFeedback } from "../utils/adminFeedback.js";
 import { abrirModalExclusao, fecharModalExclusao } from "../utils/adminModal.js";

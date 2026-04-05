@@ -1,5 +1,5 @@
 import { criarProdutoHTML } from "./components/productCard.js";
-import { getProdutos } from "./services/api.js";
+import { getProdutos } from "./services/productService.js";
 import {
   clearAuthSession,
   getStoredUser,

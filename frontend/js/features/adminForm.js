@@ -1,8 +1,6 @@
-import {
-  atualizarProduto,
-  criarProduto,
-  uploadImagemProduto,
-} from "../services/api.js";
+import { atualizarProduto, criarProduto } from "../services/productService.js";
+import { uploadImagemProduto } from "../services/uploadService.js";
+import { bindAdminUpload, resetAdminUpload } from "./adminUpload.js";
 import { mostrarFeedback } from "../utils/adminFeedback.js";
 
 export function createAdminFormController({ onSaved }) {
@@ -46,6 +44,8 @@ export function createAdminFormController({ onSaved }) {
   // Preenche o formulario com os dados existentes e abre o modal em modo edicao.
   function startEdit(produto) {
     const form = document.getElementById("product-form");
+    const imageInput = document.getElementById("image-file-input");
+    const uploadFileName = document.getElementById("upload-file-name");
 
     openFormPanel();
     form.elements.id.value = produto.id;
@@ -54,24 +54,19 @@ export function createAdminFormController({ onSaved }) {
     form.elements.brand.value = produto.brand ?? "";
     form.elements.price.value = produto.price ?? "";
     form.elements.image.value = produto.image ?? "";
-    form.elements.imageFile.value = "";
+    resetAdminUpload({ imageInput, uploadFileName });
     atualizarModoFormulario("edicao");
   }
 
   // Limpa o estado interno do formulario e fecha o modal.
-  function cancelarEdicao() {
+  function cancelarEdicao(uploadController) {
     const form = document.getElementById("product-form");
 
     form.reset();
     form.elements.id.value = "";
     atualizarModoFormulario("cadastro");
     mostrarFeedback("");
-
-    const uploadFileName = document.getElementById("upload-file-name");
-
-    if (uploadFileName) {
-      uploadFileName.textContent = "Nenhum arquivo selecionado";
-    }
+    uploadController?.reset();
 
     closeFormPanel();
   }
@@ -112,6 +107,7 @@ export function createAdminFormController({ onSaved }) {
 
       form.reset();
       atualizarModoFormulario("cadastro");
+      uploadController.reset();
       await onSaved();
       // Depois de salvar, a tabela volta a ser o foco principal do painel.
       closeFormPanel();
@@ -133,59 +129,22 @@ export function createAdminFormController({ onSaved }) {
     const imageInput = document.getElementById("image-file-input");
     const uploadFileName = document.getElementById("upload-file-name");
     const uploadDropzone = document.getElementById("admin-upload-dropzone");
-
-    if (uploadDropzone) {
-      // Permite o drop e realca a area enquanto o arquivo esta sobre ela.
-      uploadDropzone.addEventListener("dragover", (event) => {
-        event.preventDefault();
-        uploadDropzone.classList.add("is-dragover");
-      });
-
-      // Ao soltar, o arquivo passa a preencher o mesmo input usado no upload normal.
-      uploadDropzone.addEventListener("drop", (event) => {
-        event.preventDefault();
-        uploadDropzone.classList.remove("is-dragover");
-
-        const droppedFile = event.dataTransfer?.files?.[0];
-
-        if (!droppedFile || !imageInput) return;
-
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(droppedFile);
-        imageInput.files = dataTransfer.files;
-
-        if (uploadFileName) {
-          uploadFileName.textContent = droppedFile.name;
-        }
-      });
-
-      // Remove o destaque quando o usuario sai da area sem soltar o arquivo.
-      uploadDropzone.addEventListener("dragleave", () => {
-        uploadDropzone.classList.remove("is-dragover");
-      });
-    }
-
-    // Clique tradicional e drag and drop atualizam o mesmo texto com o nome do arquivo.
-    if (imageInput && uploadFileName) {
-      imageInput.addEventListener("change", () => {
-        const selectedFile = imageInput.files?.[0];
-
-        uploadFileName.textContent = selectedFile
-          ? selectedFile.name
-          : "Nenhum arquivo selecionado";
-      });
-    }
+    const uploadController = bindAdminUpload({
+      imageInput,
+      uploadFileName,
+      uploadDropzone,
+    });
 
     if (form) {
       form.addEventListener("submit", cadastrarProduto);
     }
 
     if (cancelButton) {
-      cancelButton.addEventListener("click", cancelarEdicao);
+      cancelButton.addEventListener("click", () => cancelarEdicao(uploadController));
     }
 
     if (closeFormIconButton) {
-      closeFormIconButton.addEventListener("click", cancelarEdicao);
+      closeFormIconButton.addEventListener("click", () => cancelarEdicao(uploadController));
     }
 
     if (openFormButton) {
@@ -196,11 +155,7 @@ export function createAdminFormController({ onSaved }) {
         currentForm.elements.id.value = "";
         mostrarFeedback("");
         atualizarModoFormulario("cadastro");
-
-        if (uploadFileName) {
-          uploadFileName.textContent = "Nenhum arquivo selecionado";
-        }
-
+        uploadController.reset();
         openFormPanel();
       });
     }
@@ -209,7 +164,7 @@ export function createAdminFormController({ onSaved }) {
     if (formModal) {
       formModal.addEventListener("click", (event) => {
         if (event.target === formModal) {
-          cancelarEdicao();
+          cancelarEdicao(uploadController);
         }
       });
     }
@@ -221,7 +176,7 @@ export function createAdminFormController({ onSaved }) {
         formModal &&
         !formModal.classList.contains("hidden")
       ) {
-        cancelarEdicao();
+        cancelarEdicao(uploadController);
       }
     });
 
