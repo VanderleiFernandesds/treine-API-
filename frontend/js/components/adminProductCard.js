@@ -1,18 +1,22 @@
 export function criarAdminProductCard(produto) {
-  const item = document.createElement("div");
-  item.className = "admin-product-card";
+  // Cada produto do admin e representado por uma linha da tabela.
+  const item = document.createElement("tr");
+  item.className = "admin-product-row";
 
   item.innerHTML = `
-    <h3>${produto.name}</h3>
-    <p>${produto.description ?? "Sem descricao"}</p>
-    <div class="admin-product-meta">
-      <span class="admin-product-brand">${produto.brand ?? "Sem marca"}</span>
-      <strong class="admin-product-price">R$ ${Number(produto.price).toFixed(2)}</strong>
-    </div>
-    <div class="admin-card-actions">
-      <button class="admin-card-button edit-button" data-id="${produto.id}">Editar</button>
-      <button class="admin-card-button delete-button" data-id="${produto.id}">Excluir</button>
-    </div>
+    <td class="admin-cell-strong">${produto.name}</td>
+    <td>${produto.description ?? "Sem descricao"}</td>
+    <td>${produto.brand ?? "Sem marca"}</td>
+    <td>R$ ${Number(produto.price).toFixed(2)}</td>
+    <td><span class="admin-status-badge">Ativo</span></td>
+    <td>
+      <div class="admin-table-actions">
+        <button class="admin-table-link edit-button" data-id="${produto.id}">Editar</button>
+        <span>|</span>
+        <!-- Acoes ficam compactas para aproximar o visual de um painel tipo CMS. -->
+        <button class="admin-table-link delete-button" data-id="${produto.id}">Excluir</button>
+      </div>
+    </td>
   `;
 
   return item;

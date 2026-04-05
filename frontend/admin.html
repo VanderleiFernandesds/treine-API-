@@ -8,136 +8,168 @@
   </head>
   <body>
     <main>
-      <!-- Página administrativa separada da vitrine principal da loja. -->
+      <!-- Pagina administrativa separada da vitrine principal da loja. -->
       <section class="store admin-page">
         <div class="container">
-          <!-- Bloco de apresentação do painel e link de retorno para a loja. -->
+          <!-- Bloco de apresentacao do painel e link de retorno para a loja. -->
           <section class="admin-hero">
             <div>
-              <p class="admin-eyebrow">Painel admin</p>
-              <h1>Painel administrativo</h1>
+              <p class="admin-eyebrow">Gerenciamento</p>
+              <h1>Produtos</h1>
               <p class="admin-hero-text">
-                Gerencie o catalogo, teste o CRUD no frontend e mantenha a loja
-                principal separada da area de edicao.
+                Edite o catalogo da loja em uma interface separada da vitrine publica.
               </p>
             </div>
 
             <a class="admin-link" href="./index.html">Voltar para a loja</a>
           </section>
 
-          <!-- Layout em duas colunas: formulário de um lado e lista do outro. -->
+          <!-- Tabela principal do admin. -->
           <div class="admin-layout">
-            <section
-              class="admin-panel admin-form-panel"
-              aria-labelledby="admin-form-title"
-            >
-              <div class="admin-panel-header">
-                <p class="admin-panel-kicker">Gerenciamento</p>
-                <h2 id="admin-form-title">Cadastrar produto</h2>
-              </div>
-
-              <!-- Formulário usado tanto para cadastro quanto para edição. -->
-              <form id="product-form" class="admin-form">
-                <input type="hidden" name="id" />
-
-                <label class="admin-field">
-                  <span>Nome do produto</span>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Ex: Mouse Gamer RGB"
-                  />
-                </label>
-
-                <label class="admin-field">
-                  <span>Descricao</span>
-                  <input
-                    type="text"
-                    name="description"
-                    placeholder="Descricao curta do produto"
-                  />
-                </label>
-
-                <div class="admin-field-row">
-                  <label class="admin-field">
-                    <span>Marca</span>
-                    <input
-                      type="text"
-                      name="brand"
-                      placeholder="Ex: Logitech"
-                    />
-                  </label>
-
-                  <label class="admin-field">
-                    <span>Preco</span>
-                    <input
-                      type="number"
-                      name="price"
-                      placeholder="0,00"
-                      step="0.01"
-                    />
-                  </label>
-                </div>
-
-                <label class="admin-field">
-                  <span>Imagem</span>
-                  <input
-                    type="text"
-                    name="image"
-                    placeholder="mouse-gamer-rgb.png"
-                  />
-                </label>
-
-                <!-- Indicador visual do modo atual: cadastro ou edição. -->
-                <p id="form-mode" class="admin-form-mode">Modo cadastro</p>
-                <!-- Área de feedback para mostrar sucesso e erro dentro da página. -->
-                <p id="admin-feedback" class="admin-feedback"></p>
-
-                <div class="admin-form-actions">
-                  <button
-                    type="submit"
-                    id="submit-button"
-                    class="admin-button admin-button-primary"
-                  >
-                    Cadastrar
-                  </button>
-                  <button
-                    type="button"
-                    id="cancel-edit-button"
-                    class="admin-button admin-button-secondary"
-                  >
-                    Cancelar edicao
-                  </button>
-                </div>
-              </form>
-            </section>
-
             <section
               class="admin-panel admin-list-panel"
               aria-labelledby="admin-list-title"
             >
               <div class="admin-panel-header">
-                <p class="admin-panel-kicker">Catalogo</p>
-                <h2 id="admin-list-title">Lista de produtos</h2>
+                <div>
+                  <p class="admin-panel-kicker">Catalogo</p>
+                  <h2 id="admin-list-title">Lista de produtos</h2>
+                </div>
+                <button class="admin-table-add-button" id="open-form-button" type="button">
+                  Novo produto
+                </button>
               </div>
 
-              <!-- Lista preenchida dinamicamente pelo JavaScript do painel admin. -->
-              <div id="admin-product-list" class="admin-product-list"></div>
+              <!-- Tabela preenchida dinamicamente pelo JavaScript do painel admin. -->
+              <div class="admin-table-shell">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Descricao</th>
+                      <th>Marca</th>
+                      <th>Preco</th>
+                      <th>Status</th>
+                      <th>Acao</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-product-list"></tbody>
+                </table>
+              </div>
             </section>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- Modal de confirmação exibido antes de excluir um produto. -->
+    <!-- Modal usado para abrir o formulario de cadastro/edicao. -->
+    <div class="admin-form-modal hidden" id="admin-form-modal">
+      <section
+        class="admin-panel admin-form-panel"
+        aria-labelledby="admin-form-title"
+        id="admin-form-panel"
+      >
+        <div class="admin-panel-header">
+          <div>
+            <p class="admin-panel-kicker">Gerenciamento</p>
+            <h2 id="admin-form-title">Formulario</h2>
+          </div>
+          <button
+            type="button"
+            id="close-form-icon-button"
+            class="admin-modal-close"
+            aria-label="Fechar formulario"
+          >
+            ×
+          </button>
+        </div>
+
+        <!-- Formulario usado tanto para cadastro quanto para edicao. -->
+        <form id="product-form" class="admin-form">
+          <input type="hidden" name="id" />
+
+          <label class="admin-field">
+            <span>Nome do produto</span>
+            <input
+              type="text"
+              name="name"
+              placeholder="Ex: Mouse Gamer RGB"
+            />
+          </label>
+
+          <label class="admin-field">
+            <span>Descricao</span>
+            <input
+              type="text"
+              name="description"
+              placeholder="Descricao curta do produto"
+            />
+          </label>
+
+          <div class="admin-field-row">
+            <label class="admin-field">
+              <span>Marca</span>
+              <input
+                type="text"
+                name="brand"
+                placeholder="Ex: Logitech"
+              />
+            </label>
+
+            <label class="admin-field">
+              <span>Preco</span>
+              <input
+                type="number"
+                name="price"
+                placeholder="0,00"
+                step="0.01"
+              />
+            </label>
+          </div>
+
+          <label class="admin-field">
+            <span>Imagem</span>
+            <input
+              type="text"
+              name="image"
+              placeholder="mouse-gamer-rgb.png"
+            />
+          </label>
+
+          <!-- Indicador visual do modo atual: cadastro ou edicao. -->
+          <p id="form-mode" class="admin-form-mode">Modo cadastro</p>
+          <!-- Area de feedback para mostrar sucesso e erro dentro da pagina. -->
+          <p id="admin-feedback" class="admin-feedback"></p>
+
+          <div class="admin-form-actions">
+            <button
+              type="submit"
+              id="submit-button"
+              class="admin-button admin-button-primary"
+            >
+              Cadastrar
+            </button>
+            <button
+              type="button"
+              id="cancel-edit-button"
+              class="admin-button admin-button-secondary"
+            >
+              Fechar formulario
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Modal de confirmacao exibido antes de excluir um produto. -->
     <div class="admin-modal hidden" id="delete-modal">
       <div class="admin-modal-content">
-        <h3>Confirmar exclusão</h3>
+        <h3>Confirmar exclusao</h3>
         <p id="delete-modal-text">
           Tem certeza que deseja excluir este produto?
         </p>
 
-        <!-- Ações do modal: confirmar a exclusão ou cancelar. -->
+        <!-- Acoes do modal: confirmar a exclusao ou cancelar. -->
         <div class="admin-modal-actions">
           <button type="button" id="confirm-delete-button">Excluir</button>
           <button type="button" id="cancel-delete-button">Cancelar</button>
@@ -145,7 +177,7 @@
       </div>
     </div>
 
-    <!-- Script responsável por carregar, cadastrar, editar e excluir produtos. -->
+    <!-- Script responsavel por carregar, cadastrar, editar e excluir produtos. -->
     <script type="module" src="js/admin.js"></script>
   </body>
 </html>

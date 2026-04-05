@@ -1,108 +1,120 @@
-/* Fundo e atmosfera visual exclusivos da página administrativa. */
+/* Fundo limpo e neutro para o painel com cara de sistema administrativo. */
 .admin-page {
-  background:
-    radial-gradient(circle at top right, rgba(240, 184, 64, 0.18), transparent 28%),
-    linear-gradient(180deg, #f7f2e8 0%, #f4f4f4 40%, #eef1f5 100%);
+  background: #f8fafc;
 }
 
-/* Espaçamento principal do conteúdo do painel. */
+/* Espacamento principal do conteudo. */
 .admin-page .container {
-  padding-top: 32px;
-  padding-bottom: 48px;
+  padding-top: 18px;
+  padding-bottom: 36px;
 }
 
-/* Cabeçalho de destaque com título, descrição e atalho para a loja. */
+/* Cabecalho superior do admin com titulo e atalho de volta. */
 .admin-hero {
   display: flex;
   justify-content: space-between;
-  gap: 24px;
-  align-items: flex-start;
-  padding: 28px;
-  margin-bottom: 24px;
-  border: 1px solid rgba(24, 24, 27, 0.08);
-  border-radius: 24px;
-  background: linear-gradient(135deg, #111111 0%, #1f2937 100%);
-  color: #f8fafc;
-  box-shadow: 0 24px 70px rgba(17, 24, 39, 0.18);
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #0f172a;
 }
 
-/* Textos de apoio usados como pequenos rótulos visuais. */
 .admin-eyebrow,
 .admin-panel-kicker {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
   font-weight: 700;
-}
-
-.admin-eyebrow {
-  color: #fbbf24;
+  color: #64748b;
 }
 
 .admin-hero h1 {
-  margin-bottom: 12px;
-  font-size: clamp(2rem, 3vw, 3rem);
+  margin-bottom: 6px;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
   line-height: 1.05;
 }
 
 .admin-hero-text {
-  max-width: 620px;
-  color: rgba(248, 250, 252, 0.82);
+  max-width: 540px;
+  color: #64748b;
+  font-size: 0.96rem;
 }
 
-/* Link de retorno para a vitrine principal. */
 .admin-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  color: #f8fafc;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  color: #0f172a;
   text-decoration: none;
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: #ffffff;
   transition:
     background-color 0.2s ease,
     transform 0.2s ease;
 }
 
 .admin-link:hover {
-  background-color: rgba(255, 255, 255, 0.16);
+  background-color: #f8fafc;
   transform: translateY(-1px);
 }
 
-/* Estrutura principal com formulário e lista lado a lado. */
+/* Formulario ao lado da tabela em telas grandes. */
 .admin-layout {
   display: grid;
-  grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
   align-items: start;
 }
 
-/* Cartões-base do painel administrativo. */
+/* Cartao-base do painel admin. */
 .admin-panel {
-  padding: 24px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(12px);
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+.admin-form-modal.hidden {
+  display: none;
+}
+
+.admin-form-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(15, 23, 42, 0.48);
+}
+
+.admin-form-panel {
+  width: min(100%, 560px);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
 }
 
 .admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
   margin-bottom: 18px;
 }
 
 .admin-panel-header h2 {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
+  color: #0f172a;
 }
 
-.admin-panel-kicker {
-  color: #b45309;
-}
-
-/* Formulário administrativo e seus campos. */
+/* Formulario de cadastro e edicao. */
 .admin-form {
   display: grid;
   gap: 14px;
@@ -119,20 +131,18 @@
   color: #1f2937;
 }
 
-/* Linha com dois campos lado a lado em telas maiores. */
 .admin-field-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-/* Estilo padrão dos inputs do painel admin. */
 .admin-form input {
   width: 100%;
-  min-height: 46px;
-  padding: 12px 14px;
-  border: 1px solid #d4d4d8;
-  border-radius: 14px;
+  min-height: 44px;
+  padding: 11px 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
   background-color: #ffffff;
   color: #111827;
   font: inherit;
@@ -143,20 +153,19 @@
 
 .admin-form input:focus {
   outline: none;
-  border-color: #d97706;
-  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.12);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
-/* Indicador visual do modo atual do formulário. */
 .admin-form-mode {
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: #fff7ed;
-  color: #9a3412;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #1d4ed8;
   font-weight: 700;
+  font-size: 0.92rem;
 }
 
-/* Agrupamento dos botões do formulário. */
 .admin-form-actions {
   display: flex;
   flex-wrap: wrap;
@@ -165,13 +174,12 @@
 
 .admin-feedback {
   min-height: 22px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 0.95rem;
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-size: 0.92rem;
   font-weight: 600;
 }
 
-/* Variações visuais do feedback para sucesso e erro. */
 .admin-feedback.sucesso {
   background-color: #dcfce7;
   color: #166534;
@@ -182,124 +190,145 @@
   color: #991b1b;
 }
 
-
-/* Botões principais do painel e suas variações. */
 .admin-button {
-  min-height: 46px;
-  padding: 12px 18px;
+  min-height: 42px;
+  padding: 11px 16px;
   border: 0;
-  border-radius: 14px;
+  border-radius: 6px;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    background-color 0.2s ease;
 }
 
-.admin-button:hover,
-.admin-card-button:hover {
+.admin-button:hover {
   transform: translateY(-1px);
 }
 
 .admin-button-primary {
-  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
-  color: #fff7ed;
-  box-shadow: 0 10px 24px rgba(194, 65, 12, 0.22);
+  background: #16a34a;
+  color: #ffffff;
 }
 
 .admin-button-secondary {
-  background: #e5e7eb;
+  background: #f3f4f6;
   color: #111827;
 }
 
-/* Lista e cartão visual de cada produto renderizado. */
-.admin-product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+/* Tabela principal da listagem. */
+.admin-table-shell {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
 }
 
-.admin-product-card {
-  display: grid;
-  gap: 10px;
-  padding: 18px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 20px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98)),
-    #ffffff;
+.admin-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
 }
 
-.admin-product-card h3 {
-  font-size: 1.1rem;
+.admin-table th,
+.admin-table td {
+  padding: 11px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.92rem;
+  color: #334155;
 }
 
-.admin-product-card p {
-  color: #374151;
-}
-
-/* Metadados rápidos do produto, como marca e preço. */
-.admin-product-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-.admin-product-brand {
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #fef3c7;
-  color: #92400e;
-  font-size: 0.82rem;
+.admin-table thead th {
+  background: #f9fafb;
+  color: #475569;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.admin-product-price {
-  font-size: 1rem;
-  color: #111827;
+.admin-product-row:nth-child(even) {
+  background: #f5f6f7;
 }
 
-/* Área com ações de editar e excluir. */
-.admin-card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.admin-cell-strong {
+  color: #0f172a;
+  font-weight: 700;
 }
 
-.admin-card-button {
-  padding: 10px 14px;
+.admin-status-badge {
+  color: #16a34a;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.admin-table-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.admin-table-link {
+  padding: 0;
   border: 0;
-  border-radius: 12px;
+  background: transparent;
+  color: #2563eb;
   font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.admin-table-link:hover {
+  text-decoration: underline;
+}
+
+.admin-table-add-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 6px;
+  background: #16a34a;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
 }
 
-.admin-card-button.edit-button {
-  background: #dbeafe;
-  color: #1d4ed8;
+.admin-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 6px;
+  background: #f3f4f6;
+  color: #0f172a;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
 }
 
-.admin-card-button.delete-button {
-  background: #fee2e2;
-  color: #b91c1c;
+.admin-empty-row td {
+  border-bottom: 0;
 }
 
-/* Estado vazio quando não há produtos na lista. */
 .admin-empty-state {
   padding: 28px;
-  border: 1px dashed #cbd5e1;
-  border-radius: 18px;
   text-align: center;
   color: #475569;
-  background-color: rgba(255, 255, 255, 0.76);
+  background-color: #ffffff;
 }
 
-
-/* Camada do modal cobrindo a tela inteira durante a confirmação. */
+/* Modal de exclusao mantido no mesmo painel. */
 .admin-modal {
   position: fixed;
   inset: 0;
@@ -311,17 +340,15 @@
   z-index: 1000;
 }
 
-/* Mantém o modal invisível até que o JavaScript remova essa classe. */
 .admin-modal.hidden {
   display: none;
 }
 
-/* Caixa principal do modal com título, texto e ações. */
 .admin-modal-content {
   width: 100%;
   max-width: 420px;
   padding: 24px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
   display: grid;
@@ -337,7 +364,6 @@
   color: #374151;
 }
 
-/* Agrupa os botões do modal no canto direito. */
 .admin-modal-actions {
   display: flex;
   gap: 12px;
@@ -347,7 +373,7 @@
 .admin-modal-actions button {
   padding: 10px 16px;
   border: 0;
-  border-radius: 12px;
+  border-radius: 6px;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
@@ -363,15 +389,13 @@
   color: #111827;
 }
 
-
-/* Ajustes responsivos para tablet e celular. */
 @media (max-width: 900px) {
   .admin-hero {
     flex-direction: column;
   }
 
-  .admin-layout {
-    grid-template-columns: 1fr;
+  .admin-panel-header {
+    flex-direction: column;
   }
 }
 
@@ -380,10 +404,9 @@
     padding-top: 20px;
   }
 
-  .admin-hero,
   .admin-panel {
-    padding: 20px;
-    border-radius: 18px;
+    padding: 18px;
+    border-radius: 8px;
   }
 
   .admin-field-row {
