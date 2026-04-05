@@ -65,8 +65,12 @@ project/
       features/
         adminForm.js
         adminList.js
+        adminUpload.js
       services/
         api.js
+        httpHeaders.js
+        productService.js
+        uploadService.js
       utils/
         adminFeedback.js
         adminModal.js
@@ -134,12 +138,15 @@ No frontend, a organizacao atual esta assim:
 - `js/components/productCard.js`: monta os cards da loja publica
 - `js/features/adminForm.js`: controla o formulario do admin, incluindo cadastro e edicao
 - `js/features/adminList.js`: controla a listagem, modal de exclusao e eventos dos cards
+- `js/features/adminUpload.js`: centraliza clique, drag and drop e reset da area de upload
 - `js/login.js`: envia o login para a API e redireciona conforme o papel do usuario
 - `js/login.js`: tambem processa o retorno do Google Login
 - `js/register.js`: envia o cadastro para a API e redireciona para o login
 - `js/main.js`: carrega os produtos da loja e controla o carrinho lateral
-- `js/services/api.js`: faz o `fetch` para a API
-- `js/services/api.js`: tambem envia imagens em `multipart/form-data` para `/api/upload`
+- `js/services/api.js`: arquivo de compatibilidade durante a divisao dos servicos
+- `js/services/httpHeaders.js`: concentra os headers autenticados usados nos services
+- `js/services/productService.js`: concentra as chamadas de produto
+- `js/services/uploadService.js`: concentra o upload de imagem para o admin
 - `js/utils/adminFeedback.js`: controla as mensagens visuais do painel
 - `js/utils/adminModal.js`: controla a abertura e o fechamento do modal de exclusao
 - `js/utils/auth.js`: centraliza token, usuario salvo e verificacao de sessao
