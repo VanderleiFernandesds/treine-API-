@@ -54,6 +54,21 @@ project/
     .env.example
   frontend/
     css/
+      pages/
+        admin/
+          admin-page.css
+          admin-form.css
+          admin-table.css
+          admin-upload.css
+          admin-modal.css
+        login/
+          login-page.css
+          login-form.css
+          login-social.css
+        store/
+          store-page.css
+          store-sidebar.css
+          cart.css
     images/
       banners/
       icons/
@@ -132,6 +147,9 @@ No frontend, a organizacao atual esta assim:
 - `images/banners/`: imagens de destaque da interface
 - `images/icons/`: icones do projeto, como favicon e elementos visuais pequenos
 - `images/products/`: imagens dos produtos e placeholder
+- `css/pages/admin/`: divide o CSS do admin em layout, formulario, tabela, upload e modais
+- `css/pages/login/`: divide o CSS da autenticacao em layout, formulario e login social
+- `css/pages/store/`: divide o CSS da loja em pagina, sidebar/sessao e carrinho
 - `js/admin.js`: inicializa e conecta os modulos da pagina admin
 - `js/components/adminProductCard.js`: monta os cards do painel admin
 - `js/components/productCard.js`: monta os cards da loja publica

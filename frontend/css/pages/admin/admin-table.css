@@ -1,0 +1,95 @@
+/* Tabela principal do catalogo, incluindo acoes, status e estado vazio. */
+.admin-table-shell {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 11px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.92rem;
+  color: #334155;
+}
+
+.admin-table thead th {
+  background: #f9fafb;
+  color: #475569;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-product-row:nth-child(even) {
+  background: #f5f6f7;
+}
+
+.admin-cell-strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.admin-status-badge {
+  color: #16a34a;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.admin-table-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.admin-table-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #2563eb;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.admin-table-link:hover {
+  text-decoration: underline;
+}
+
+.admin-table-add-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 6px;
+  background: #16a34a;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-empty-row td {
+  border-bottom: 0;
+}
+
+.admin-empty-state {
+  padding: 28px;
+  text-align: center;
+  color: #475569;
+  background-color: #ffffff;
+}

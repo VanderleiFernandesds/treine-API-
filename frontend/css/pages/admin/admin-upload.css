@@ -1,0 +1,61 @@
+/* Dropzone do admin usada para clique e drag and drop da imagem do produto. */
+.admin-upload-dropzone {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 48px 24px;
+  border: 2px dashed #9db7c1;
+  border-radius: 8px;
+  background-color: #d9e8ee;
+  color: #264653;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Destaque visual leve quando o arquivo e arrastado sobre a area de upload. */
+.admin-upload-dropzone:hover {
+  background-color: #d2e2e8;
+  border-color: #7fa2af;
+  transform: translateY(-1px);
+}
+
+.admin-upload-input {
+  display: none;
+}
+
+.admin-upload-dropzone.is-dragover {
+  background-color: #cfe0e7;
+  border-color: #5f8794;
+  transform: scale(1.01);
+}
+
+/* Textos centrais usados para aproximar o componente da referencia visual. */
+.admin-upload-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #264653;
+}
+
+.admin-upload-subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: #4b6470;
+}
+
+/* Nome do arquivo aparece abaixo do texto principal da dropzone. */
+.admin-upload-file-name {
+  color: #4b6470;
+  font-size: 0.85rem;
+}
+
+.admin-upload-icon {
+  font-size: 4rem;
+  line-height: 1;
+  color: #8aa8b2;
+}

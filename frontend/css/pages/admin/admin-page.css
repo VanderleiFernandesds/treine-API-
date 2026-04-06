@@ -1,0 +1,115 @@
+/* Base visual da pagina admin: fundo, hero, painel-base e responsividade geral. */
+.admin-page {
+  background: #f8fafc;
+}
+
+/* Espacamento principal do conteudo. */
+.admin-page .container {
+  padding-top: 18px;
+  padding-bottom: 36px;
+}
+
+/* Cabecalho superior do admin com titulo e atalho de volta. */
+.admin-hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #0f172a;
+}
+
+.admin-eyebrow,
+.admin-panel-kicker {
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.admin-hero h1 {
+  margin-bottom: 6px;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  line-height: 1.05;
+}
+
+.admin-hero-text {
+  max-width: 540px;
+  color: #64748b;
+  font-size: 0.96rem;
+}
+
+.admin-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  color: #0f172a;
+  text-decoration: none;
+  background-color: #ffffff;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-link:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+/* Estrutura geral do admin. */
+.admin-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+/* Cartao-base do painel admin. */
+.admin-panel {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.admin-panel-header h2 {
+  font-size: 1.35rem;
+  color: #0f172a;
+}
+
+@media (max-width: 900px) {
+  .admin-hero {
+    flex-direction: column;
+  }
+
+  .admin-panel-header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-page .container {
+    padding-top: 20px;
+  }
+
+  .admin-panel {
+    padding: 18px;
+    border-radius: 8px;
+  }
+}
